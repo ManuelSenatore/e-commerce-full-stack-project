@@ -37,6 +37,16 @@ public class User {
 
     private Boolean active = true;
 
+    @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL)
+    @JsonBackReference
+    @ToString.Exclude
+    private List<Indirizzo> indirizzo;
+
+    @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL)
+    @JsonBackReference
+    @ToString.Exclude
+    private List<Carrello> ordine;
+
     public void addRole(Role r) {
 
         this.roles.add(r);

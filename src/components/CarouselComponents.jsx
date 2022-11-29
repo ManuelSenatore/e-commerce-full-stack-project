@@ -10,31 +10,31 @@ function CarouselComponents() {
           alt="First slide"
         />
         <Carousel.Caption>
-          <h3>First slide label</h3>
+          <h2>Tutto quello che cerchi</h2>
           <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
         <img
           className="d-block w-100 h-80"
-          src="holder.js/800x400?text=Second slide&bg=282c34"
+          src="https://iili.io/Hf2hIZ7.jpg"
           alt="Second slide"
         />
 
         <Carousel.Caption>
-          <h3>Second slide label</h3>
+          <h2>Per rendere il tuo ufficio ancora più confortevole</h2>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="holder.js/800x400?text=Third slide&bg=20232a"
+          src="https://iili.io/Hf2GDOP.jpg"
           alt="Third slide"
         />
 
         <Carousel.Caption>
-          <h3>Third slide label</h3>
+          <h2>La scuola con noi è ancora più bella</h2>
           <p>
             Praesent commodo cursus magna, vel scelerisque nisl consectetur.
           </p>

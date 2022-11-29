@@ -12,7 +12,7 @@ function LoginComponent() {
 
   const navigate = useNavigate();
 
-  const [state, setState] = React.useState({
+  /*   const [state, setState] = React.useState({
     open: false,
     vertical: 'top',
     horizontal: 'center',
@@ -25,7 +25,7 @@ function LoginComponent() {
 
   const handleClose = () => {
     setState({ ...state, open: false });
-  };
+  }; */
 
   const [formObj, setFormObj] = useState({
     // oggetto per la compilazione del form
@@ -54,13 +54,13 @@ function LoginComponent() {
           fontSize: "1.5em",
         }}
       >
-          <Snackbar
+        {/*           <Snackbar
             anchorOrigin={{ vertical, horizontal }}
             open={open}
             onClose={handleClose}
             message="Username o password errati!"
             key={vertical + horizontal}
-          />
+          /> */}
         <Form
           onSubmit={(e) => {
             e.preventDefault();
@@ -68,12 +68,13 @@ function LoginComponent() {
             console.log(user);
             if (user.token !== undefined) {
               navigate("/");
-            } else {
+            }
+            /* else {
               handleClick({
                 vertical: 'top',
                 horizontal: 'center',
               });
-            }
+            } */
           }}
         >
           <Form.Group className="mb-3" controlId="formBasicEmail">

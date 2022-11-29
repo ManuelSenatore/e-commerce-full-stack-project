@@ -17,6 +17,8 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import papyrus from "../img/papyrus.png";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../redux/actions/actions";
 
 const Search = styled("div")(({ theme }) => ({
   position: "sticky",
@@ -59,6 +61,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function NavBarComponents() {
+  const token = useSelector((state) => state.user.user.token);
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -101,30 +105,74 @@ export default function NavBarComponents() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem
-        onClick={() => {
-          handleMenuClose();
-          navigate("/login");
-        }}
-      >
-        Accedi
-      </MenuItem>
-      <MenuItem
-        onClick={() => {
-          handleMenuClose();
-          navigate("/signup");
-        }}
-      >
-        Registrati
-      </MenuItem>
-      <MenuItem
-        onClick={() => {
-          handleMenuClose();
-          navigate("/account");
-        }}
-      >
-        My Account
-      </MenuItem>
+      {token && (
+        <Menu
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          id={menuId}
+          keepMounted
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          open={isMenuOpen}
+          onClose={handleMenuClose}
+        >
+          <MenuItem
+            onClick={() => {
+              handleMenuClose();
+              dispatch(logout());
+            }}
+          >
+            Logout
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              handleMenuClose();
+              navigate("/account");
+            }}
+          >
+            My Account
+          </MenuItem>
+        </Menu>
+      )}
+      {token === undefined && (
+        <Menu
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          id={menuId}
+          keepMounted
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          open={isMenuOpen}
+          onClose={handleMenuClose}
+        >
+          <MenuItem
+            onClick={() => {
+              handleMenuClose();
+              navigate("/login");
+            }}
+          >
+            Accedi
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              handleMenuClose();
+              navigate("/signup");
+            }}
+          >
+            Registrati
+          </MenuItem>
+        </Menu>
+      )}
     </Menu>
   );
 
@@ -190,11 +238,7 @@ export default function NavBarComponents() {
             <MenuIcon />
           </IconButton> */}
           <Link to="/">
-          <img
-            className="logo"
-            src={papyrus}
-            alt="logo"
-          />
+            <img className="logo" src={papyrus} alt="logo" />
           </Link>
           <Typography
             variant="h6"

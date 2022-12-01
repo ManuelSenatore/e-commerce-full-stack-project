@@ -3,5 +3,6 @@ package com.CartoleriaPapyrus.ecommerce.entities;
 public enum Categoria {
     SCUOLA,
     CANCELLERIA,
-    UFFICIO
+    UFFICIO,
+    TEMPO_LIBERO
 }

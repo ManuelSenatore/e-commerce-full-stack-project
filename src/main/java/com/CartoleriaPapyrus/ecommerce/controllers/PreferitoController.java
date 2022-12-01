@@ -2,6 +2,7 @@ package com.CartoleriaPapyrus.ecommerce.controllers;
 
 import com.CartoleriaPapyrus.ecommerce.entities.Preferito;
 import com.CartoleriaPapyrus.ecommerce.entities.Prodotto;
+import com.CartoleriaPapyrus.ecommerce.entities.User;
 import com.CartoleriaPapyrus.ecommerce.services.PreferitoService;
 import com.CartoleriaPapyrus.ecommerce.utils.RequestModels.PreferitoRequest;
 import com.CartoleriaPapyrus.ecommerce.utils.common.ApiResponse;
@@ -47,11 +48,12 @@ public class PreferitoController {
     }
 
     // DELETE ELEMENT FROM PREFERITI
-    @DeleteMapping("/delete/{elementoId}")
+    @DeleteMapping("/delete/{elementoId}/{userId}")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<ApiResponse> deleteElement(@PathVariable("elementoId") Integer elementoId) throws Exception {
-        preferitoService.deleteElement(elementoId);
+    public ResponseEntity<ApiResponse> deleteElement(@PathVariable("userId") User userId, @PathVariable("elementoId") Integer elementoId) throws Exception {
+        preferitoService.deleteElement(elementoId, userId);
 
         return new ResponseEntity<>(new ApiResponse( true, "Elemento eliminato"), HttpStatus.OK);
     }
+
 }

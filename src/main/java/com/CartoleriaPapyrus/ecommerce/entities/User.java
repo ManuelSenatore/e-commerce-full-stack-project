@@ -47,6 +47,11 @@ public class User {
     @ToString.Exclude
     private List<Carrello> ordine;
 
+    @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL)
+    @JsonBackReference
+    @ToString.Exclude
+    private List<Preferito> preferito;
+
     public void addRole(Role r) {
 
         this.roles.add(r);

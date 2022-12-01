@@ -2,6 +2,7 @@ package com.CartoleriaPapyrus.ecommerce.services;
 
 import com.CartoleriaPapyrus.ecommerce.entities.Preferito;
 import com.CartoleriaPapyrus.ecommerce.entities.Prodotto;
+import com.CartoleriaPapyrus.ecommerce.entities.User;
 import com.CartoleriaPapyrus.ecommerce.repositories.PreferitoRepository;
 import com.CartoleriaPapyrus.ecommerce.utils.RequestModels.PreferitoRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,12 +48,18 @@ public class PreferitoService {
     }
 
     // DELETE ELEMENT FROM PREFERITI
-    public void deleteElement(Integer elementoId) throws Exception {
+    public void deleteElement(Integer elementoId, User user) throws Exception {
         Optional<Preferito> optionalPreferito = preferitoRepository.findById(Long.valueOf(elementoId));
+
+
         if(optionalPreferito.isEmpty()){
             throw new Exception( "Elemento non trovato");
         }
         Preferito pref = optionalPreferito.get();
+
+        if(pref.getUser() != user){
+            throw new Exception( "Utente non trovato");
+        }
         preferitoRepository.delete(pref);
     }
 }

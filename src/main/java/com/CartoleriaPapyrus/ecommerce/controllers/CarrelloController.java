@@ -1,8 +1,8 @@
 package com.CartoleriaPapyrus.ecommerce.controllers;
 
 import com.CartoleriaPapyrus.ecommerce.entities.Carrello;
+import com.CartoleriaPapyrus.ecommerce.entities.User;
 import com.CartoleriaPapyrus.ecommerce.services.CarrelloService;
-import com.CartoleriaPapyrus.ecommerce.services.ProdottoService;
 import com.CartoleriaPapyrus.ecommerce.utils.RequestModels.AggiungiAlCarrelloRequest;
 import com.CartoleriaPapyrus.ecommerce.utils.RequestModels.CarrelloRequest;
 import com.CartoleriaPapyrus.ecommerce.utils.common.ApiResponse;
@@ -48,11 +48,11 @@ public class CarrelloController {
     }
 
     // DELETE ELEMENTO DEL CARRELLO BY USER
-    @DeleteMapping("/delete/{elementoId}")
+    @DeleteMapping("/delete/{elementoId}/{userId}")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<ApiResponse> deleteElement(@PathVariable("elementoId") Integer elementoId) throws Exception {
+    public ResponseEntity<ApiResponse> deleteElement(@PathVariable("userId") User userId, @PathVariable("elementoId") Integer elementoId) throws Exception {
 
-        carrelloService.deleteElement(elementoId);
+        carrelloService.deleteElement(elementoId, userId);
 
         return new ResponseEntity<>(new ApiResponse(true, "Elemento eliminato"), HttpStatus.OK);
     }

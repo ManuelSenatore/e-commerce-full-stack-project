@@ -1,6 +1,7 @@
 package com.CartoleriaPapyrus.ecommerce.services;
 
 import com.CartoleriaPapyrus.ecommerce.entities.Carrello;
+import com.CartoleriaPapyrus.ecommerce.entities.User;
 import com.CartoleriaPapyrus.ecommerce.repositories.CarrelloRepository;
 import com.CartoleriaPapyrus.ecommerce.utils.RequestModels.AggiungiAlCarrelloRequest;
 import com.CartoleriaPapyrus.ecommerce.utils.RequestModels.CarrelloRequest;
@@ -60,14 +61,15 @@ public class CarrelloService {
     }
 
     // DELETE ELEMENT FROM LIST
-    public void deleteElement(Integer elementoId) throws Exception {
+    public void deleteElement(Integer elementoId, User user) throws Exception {
         Optional<Carrello> optionalCarrello = carrelloRepository.findById(Long.valueOf(elementoId));
         if(optionalCarrello.isEmpty()){
             throw new Exception( "Elemento non trovato" );
         }
-
         Carrello carr = optionalCarrello.get();
-
+        if(carr.getUser() != user){
+            throw new Exception( "Utente non trovato");
+        }
         carrelloRepository.delete(carr);
     }
 }

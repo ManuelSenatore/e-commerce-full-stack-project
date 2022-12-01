@@ -54,6 +54,7 @@ export const getProdottoList = () => {
       const response = await fetch(baseEndpoint, {
         method: "GET",
       });
+      console.log(response);
       if (response.ok) {
         const data = await response.json();
         dispatch(setProdottoList(data));

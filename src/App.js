@@ -4,12 +4,14 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
+import 'animate.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NavBarComponents from "./components/NavBarComponents";
 import { Container } from "react-bootstrap";
 import HomeComponent from "./components/HomeComponent";
 import LoginComponent from "./components/LoginComponent";
 import SignUpComopnent from "./components/SignUpComponent";
+
 
 function App() {
   return (

@@ -1,8 +1,10 @@
 import React from "react";
 import { Card, Button, Col } from "react-bootstrap";
-import { GrFavorite } from "react-icons/gr";
+import ButtonAcquistaComponent from "./ButtonAcquistaComponent";
+import LikeComponent from "./LikeComponent";
 
 const ProdottoCard = (props) => {
+
   return (
     <Col xs={6} sm={6} md={4} className="">
       <Card
@@ -10,12 +12,10 @@ const ProdottoCard = (props) => {
         key={props.i}
         style={{ border: "none", width: 100 + "%" }}
       >
-        <GrFavorite className="favoriteIcon" />
+        <LikeComponent prodotto={props.prodotto}/>  {/* Icona per aggiungere ai preferiti */}
         <Card.Img variant="top" src={props.prodotto.immagineUrl} />
         <Card.Body className="text-center cardButton">
-          <Button className="buttonCart" variant="outline-primary">
-            Aggiungi al Carrello
-          </Button>
+          <ButtonAcquistaComponent prodotto={props.prodotto.id}/> {/* Bottone per aggiungere al carrello */}
           <Card.Title className="mt-2">
             {props.prodotto.nome.substring(0, 20) + "..."}
           </Card.Title>

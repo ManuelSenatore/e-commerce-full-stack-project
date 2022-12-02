@@ -4,6 +4,8 @@ import storage from "redux-persist/lib/storage";
 import { encryptTransform } from "redux-persist-transform-encrypt";
 import userReducer from "../reducers/userReducer";
 import prodottoReducer from "../reducers/prodottoReducer";
+import preferitiReducer from "../reducers/preferitiReducer";
+import carrelloReducer from "../reducers/carrelloReducer";
 
 
 const persistConfig = {
@@ -19,7 +21,9 @@ const persistConfig = {
 
 const mergedReducers = combineReducers({
   user: userReducer,
-  prodotto : prodottoReducer
+  prodotto : prodottoReducer,
+  preferiti : preferitiReducer,
+  carrello : carrelloReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, mergedReducers);

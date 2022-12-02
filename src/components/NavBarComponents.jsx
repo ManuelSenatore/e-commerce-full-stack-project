@@ -18,7 +18,12 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import papyrus from "../img/papyrus.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../redux/actions/actions";
+import {
+  getCarrelloList,
+  getPreferitiList,
+  logout,
+} from "../redux/actions/actions";
+import { useEffect } from "react";
 
 const Search = styled("div")(({ theme }) => ({
   position: "sticky",
@@ -61,6 +66,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function NavBarComponents() {
+  const user = useSelector((state) => state.user.user);
+  const preferitiList = useSelector((state) => state.preferiti.preferitiList);
+  const carrelloList = useSelector((state) => state.carrello.carrelloList);
   const token = useSelector((state) => state.user.user.token);
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -87,6 +95,12 @@ export default function NavBarComponents() {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+
+  useEffect(() => {
+    dispatch(getPreferitiList(token, user.id));
+    dispatch(getCarrelloList(token, user.id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -122,6 +136,7 @@ export default function NavBarComponents() {
           onClose={handleMenuClose}
         >
           <MenuItem
+            style={{ backgroundColor: "red", color: "white" }}
             onClick={() => {
               handleMenuClose();
               dispatch(logout());
@@ -193,17 +208,25 @@ export default function NavBarComponents() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      <MenuItem
+        onClick={() => {
+          navigate("/wishlist");
+        }}
+      >
         <IconButton size="large" aria-label="" color="inherit">
-          <Badge badgeContent={0} color="error">
+          <Badge badgeContent={preferitiList.length} color="error">
             <FavoriteIcon />
           </Badge>
         </IconButton>
         <p>Preferiti</p>
       </MenuItem>
-      <MenuItem>
+      <MenuItem
+        onClick={() => {
+          navigate("/carrello");
+        }}
+      >
         <IconButton size="large" aria-label="" color="inherit">
-          <Badge badgeContent={0} color="error">
+          <Badge badgeContent={carrelloList.cartItems.length} color="error">
             <ShoppingCartIcon />
           </Badge>
         </IconButton>
@@ -260,20 +283,26 @@ export default function NavBarComponents() {
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", sm: "flex", md: "flex" } }}>
             <IconButton
+              onClick={() => {
+                navigate("/wishlist");
+              }}
               size="large"
               aria-label="show 4 new mails"
               color="inherit"
             >
-              <Badge badgeContent={0} color="error">
+              <Badge badgeContent={preferitiList.length} color="error">
                 <FavoriteIcon />
               </Badge>
             </IconButton>
             <IconButton
+              onClick={() => {
+                navigate("/carrello");
+              }}
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
             >
-              <Badge badgeContent={0} color="error">
+              <Badge badgeContent={carrelloList.cartItems.length} color="error">
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProdottoList } from "../redux/actions/actions";
 import CarouselComponents from "./CarouselComponents";
 import FilterBar from "./FilterBar";
+import MapsComponent from "./MapsComponent";
 import ProdottoCard from "./ProdottoCard";
 
 const HomeComponent = () => {
@@ -21,14 +22,13 @@ const HomeComponent = () => {
       <FilterBar />
       <Container>
         <h2 className="text-center">Ultimi Arrivi</h2>
-        <Row
-          className="display-flex justify-content-beetween"
-        >
-            {prodottoList.map((prodotto, i) => (
-              <ProdottoCard key={i} prodotto={prodotto} />
-            ))}
+        <Row className="display-flex justify-content-beetween">
+          {prodottoList.map((prodotto, i) => (
+            <ProdottoCard key={i} prodotto={prodotto} />
+          ))}
         </Row>
       </Container>
+      <MapsComponent />
     </>
   );
 };

@@ -11,6 +11,12 @@ import { Container } from "react-bootstrap";
 import HomeComponent from "./components/HomeComponent";
 import LoginComponent from "./components/LoginComponent";
 import SignUpComopnent from "./components/SignUpComponent";
+import MapsComponent from "./components/MapsComponent";
+import WishListComponent from "./components/WishListComponent";
+import CarrelloComponent from "./components/CarrelloComponent";
+import SuccessComponent from "./components/pagamento/SuccessComponent";
+import FailureComponent from "./components/pagamento/FailureComponent";
+import CheckoutComponent from "./components/CheckoutComponent";
 
 
 function App() {
@@ -22,6 +28,11 @@ function App() {
           <Route path="/" element={<HomeComponent />} />
           <Route path="/login" element={<LoginComponent />} />
           <Route path="/signup" element={<SignUpComopnent />} />
+          <Route path="/wishlist" element={<WishListComponent />} />
+          <Route path="/carrello" element={<CarrelloComponent />} />
+          <Route path="/effettuato" element={<SuccessComponent />} />
+          <Route path="/fallito" element={<FailureComponent />} />
+          <Route path="/checkout" element={<CheckoutComponent />} />
         </Routes>
       </Container>
     </BrowserRouter>

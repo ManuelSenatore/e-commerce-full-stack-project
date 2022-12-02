@@ -56,4 +56,12 @@ public class PreferitoController {
         return new ResponseEntity<>(new ApiResponse( true, "Elemento eliminato"), HttpStatus.OK);
     }
 
+    //DELETE ELEMENT FROM PRODOTTO ID
+    @DeleteMapping("/delete/prodotto/{prodottoId}/{userId}")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<ApiResponse> deleteElementFromProdotto(@PathVariable("userId") User userId, @PathVariable("prodottoId") Integer prodottoId) throws Exception {
+        preferitoService.deleteElementByProdottoId(prodottoId, userId);
+
+        return new ResponseEntity<>(new ApiResponse( true, "Elemento eliminato"), HttpStatus.OK);
+    }
 }

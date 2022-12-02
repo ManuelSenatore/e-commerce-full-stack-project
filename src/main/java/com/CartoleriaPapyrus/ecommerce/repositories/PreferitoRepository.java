@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PreferitoRepository extends JpaRepository<Preferito, Long> {
@@ -16,4 +17,8 @@ public interface PreferitoRepository extends JpaRepository<Preferito, Long> {
     )
     List<Preferito> findbyUserOrderByCreatedDateDesc(@Param("id") Long id);
 
+    @Query(
+            value = "select p from Preferito p where p.prodotto.id = :id"
+    )
+    Optional<Preferito> findbyProdotto(@Param("id") Long id);
 }

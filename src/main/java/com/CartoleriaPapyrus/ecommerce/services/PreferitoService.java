@@ -62,4 +62,19 @@ public class PreferitoService {
         }
         preferitoRepository.delete(pref);
     }
+
+    // DELETE FROM PRODOTTOID
+    public void deleteElementByProdottoId(Integer prodottoId, User user) throws Exception {
+        Optional<Preferito> optionalPreferito = preferitoRepository.findbyProdotto(Long.valueOf(prodottoId));
+
+        if(optionalPreferito.isEmpty()){
+            throw new Exception( "Elemento non trovato");
+        }
+        Preferito pref = optionalPreferito.get();
+
+        if(pref.getUser() != user){
+            throw new Exception( "Utente non trovato");
+        }
+        preferitoRepository.delete(pref);
+    }
 }

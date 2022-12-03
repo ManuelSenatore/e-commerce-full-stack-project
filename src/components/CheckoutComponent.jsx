@@ -10,8 +10,10 @@ const CheckoutComponent = () => {
   const user = useSelector((state) => state.user.user);
   const carrelloList = useSelector((state) => state.carrello.carrelloList);
   const token = useSelector((state) => state.user.user.token);
+  const [stripeAPIToken, setStripeAPIToken] = useState('pk_test_51MAZRAGV0q5KZpMHJTZNyI5J3jePtF1Q2mTv2zyGFZnRuseaVlbUTSi1ab8mEBx046lfHkIrgONmyllDOVsPbCbs00SHEqnQaJ')
   const dispatch = useDispatch();
-  let checkoutBodyArray = [];
+  const [checkoutBodyArray, setCheckoutBodyArray] = useState([])
+  const [stripe, setStripe] = useState(window.Stripe(stripeAPIToken))
 
   for (let i = 0; i < carrelloList.cartItems.length; i++) {
     checkoutBodyArray.push({
@@ -21,46 +23,18 @@ const CheckoutComponent = () => {
       productId: carrelloList.cartItems[i].prodotto.id,
     });
   }
-  console.log(checkoutBodyArray);
 
-  /*     const goToCheckout = async () => {
-        const baseEndpoint = `http://localhost:8080/order/create-checkout-session/${user.id}`;
-    
-        const header = {
-          "Content-type": "application/json",
-          Authorization: `Bearer ${token}`,
-        };
-        const body = {
-            checkoutBodyArray
-        };
-        try {
-          const response = await fetch(baseEndpoint, {
-            method: "POST",
-            headers: header,
-            body: JSON.stringify(body),
-          });
-    
-          if (response.ok) {
-            const data = await response.json();
-            localStorage.setItem('sessionId', data.sessionId)
-            console.log(data);
-          } else {
-            alert("Error fetching results");
-          }
-        } catch (error) {
-          console.log(error);
-        }
-      }; */
   const goToCheckout = () => {
+    console.log(checkoutBodyArray);
     axios
       .post(
         `http://localhost:8080/order/create-checkout-session`,
-        token,
         checkoutBodyArray
       )
       .then((response) => {
         localStorage.setItem("sessionId", response.data.sessionId);
         console.log("session", response.data);
+        stripe.redirectToCheckout({sessionId: response.data.sessionId})
       })
       .catch((err) => console.log(err));
   };

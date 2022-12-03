@@ -30,8 +30,8 @@ function App() {
           <Route path="/signup" element={<SignUpComopnent />} />
           <Route path="/wishlist" element={<WishListComponent />} />
           <Route path="/carrello" element={<CarrelloComponent />} />
-          <Route path="/effettuato" element={<SuccessComponent />} />
-          <Route path="/fallito" element={<FailureComponent />} />
+          <Route path="payment/success" element={<SuccessComponent />} />
+          <Route path="payment/failure" element={<FailureComponent />} />
           <Route path="/checkout" element={<CheckoutComponent />} />
         </Routes>
       </Container>

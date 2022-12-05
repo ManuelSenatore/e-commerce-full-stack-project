@@ -12,21 +12,6 @@ function LoginComponent() {
 
   const navigate = useNavigate();
 
-  /*   const [state, setState] = React.useState({
-    open: false,
-    vertical: 'top',
-    horizontal: 'center',
-  });
-  const { vertical, horizontal, open } = state;
-
-  const handleClick = (newState) => () => {
-    setState({ open: true, ...newState });
-  };
-
-  const handleClose = () => {
-    setState({ ...state, open: false });
-  }; */
-
   const [formObj, setFormObj] = useState({
     // oggetto per la compilazione del form
     username: "",
@@ -43,6 +28,12 @@ function LoginComponent() {
     });
   };
 
+  useEffect(() => {
+    if(user.token){
+      navigate("/")
+    }
+  },[user.token])
+  
   return (
     <Container className="pageContainer">
       <div
@@ -66,9 +57,6 @@ function LoginComponent() {
             e.preventDefault();
             dispatch(logIn(formObj));
             console.log(user);
-            if (user.token !== undefined) {
-              navigate("/");
-            }
             /* else {
               handleClick({
                 vertical: 'top',

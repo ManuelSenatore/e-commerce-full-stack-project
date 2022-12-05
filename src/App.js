@@ -17,6 +17,7 @@ import CarrelloComponent from "./components/CarrelloComponent";
 import SuccessComponent from "./components/pagamento/SuccessComponent";
 import FailureComponent from "./components/pagamento/FailureComponent";
 import CheckoutComponent from "./components/CheckoutComponent";
+import DettagliComponent from "./components/DettagliComponent";
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
           <Route path="payment/success" element={<SuccessComponent />} />
           <Route path="payment/failure" element={<FailureComponent />} />
           <Route path="/checkout" element={<CheckoutComponent />} />
+          <Route path="/dettagli:prodottoId" element={<DettagliComponent />} />
         </Routes>
       </Container>
     </BrowserRouter>

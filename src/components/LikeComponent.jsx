@@ -2,12 +2,13 @@ import React from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useDispatch, useSelector } from "react-redux";
 import { getPreferitiList } from "../redux/actions/actions";
+import { useLocation } from "react-router-dom";
 const LikeComponent = (props) => {
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.user.token);
   const preferitiList = useSelector((state) => state.preferiti.preferitiList);
   const dispatch = useDispatch();
-
+  const location = useLocation();
   const addToFavorite = async (prodottoId) => {
     const baseEndpoint = "http://localhost:8080/api/preferiti/aggiungi";
 
@@ -64,7 +65,7 @@ const LikeComponent = (props) => {
   };
   return (
     <>
-      <FavoriteIcon style={{cursor: "pointer"}}
+      <FavoriteIcon style={{cursor: "pointer", fontSize: "2rem"}}
         color={
           preferitiList.some((el) => el.id === props.prodotto.id) ? "error" : ""
         }
@@ -78,7 +79,8 @@ const LikeComponent = (props) => {
             addToFavorite(props.prodotto.id);
           }
         }}
-        className="favoriteIcon"
+        className= "favoriteIcon"
+
       />
     </>
   );

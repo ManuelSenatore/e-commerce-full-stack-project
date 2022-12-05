@@ -29,7 +29,8 @@ const CheckoutComponent = () => {
     axios
       .post(
         `http://localhost:8080/order/create-checkout-session`,
-        checkoutBodyArray
+        checkoutBodyArray,
+        {headers: {"Authorization" : `Bearer ${token}`}}
       )
       .then((response) => {
         localStorage.setItem("sessionId", response.data.sessionId);
@@ -38,6 +39,7 @@ const CheckoutComponent = () => {
       })
       .catch((err) => console.log(err));
   };
+
   return (
     <Container className="pageContainer">
       <div className="text-center">

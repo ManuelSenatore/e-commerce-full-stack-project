@@ -2,12 +2,14 @@ import React from "react";
 import { Col, Button, Card } from "react-bootstrap";
 import { MdDeleteForever } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { getPreferitiList } from "../redux/actions/actions";
 import ButtonAcquistaComponent from "./ButtonAcquistaComponent";
 const PreferitoCard = (props) => {
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.user.token);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const removeToFavorite = async (elementoId) => {
     const baseEndpoint = `http://localhost:8080/api/preferiti/delete/prodotto/${elementoId}/${user.id}`;
@@ -33,7 +35,7 @@ const PreferitoCard = (props) => {
       console.log(error);
     }
   };
-  
+
   return (
     <Col xs={6} sm={6} md={4}>
       <Card
@@ -47,9 +49,14 @@ const PreferitoCard = (props) => {
             console.log(props.preferito.id);
           }}
           className="favoriteIcon"
-          style={{cursor: "pointer"}}
+          style={{ cursor: "pointer" }}
         />
-        <Card.Img variant="top" src={props.preferito.immagineUrl} />
+        <Card.Img
+          style={{ cursor: "pointer" }}
+          onClick={() => navigate("/dettagli" + props.preferito.id)}
+          variant="top"
+          src={props.preferito.immagineUrl}
+        />
         <Card.Body className="text-center cardButton">
           <ButtonAcquistaComponent prodotto={props.preferito.id} />
           <Card.Title className="mt-2">

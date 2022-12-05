@@ -151,7 +151,7 @@
   align-self: flex-end;
   position: relative;
   top: 20px;
-  font-size: 25px;
+  font-size: 2rem;
 }
 .cardButton{
   position: relative;
@@ -160,4 +160,11 @@
 .map-container{
   width: 100%;
   height: 50vh;
+}
+.searchBar{
+  margin-left: 2rem;
+}
+.divRelative{
+  position: relative;
+  bottom: 20px;
 }

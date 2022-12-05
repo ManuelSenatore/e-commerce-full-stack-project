@@ -21,9 +21,13 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getCarrelloList,
   getPreferitiList,
+  getProdottoList,
   logout,
 } from "../redux/actions/actions";
 import { useEffect } from "react";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Search = styled("div")(({ theme }) => ({
   position: "sticky",
@@ -65,15 +69,24 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+function sleep(delay = 0) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, delay);
+  });
+}
+
 export default function NavBarComponents() {
   const user = useSelector((state) => state.user.user);
   const preferitiList = useSelector((state) => state.preferiti.preferitiList);
   const carrelloList = useSelector((state) => state.carrello.carrelloList);
+  const prodottoList = useSelector((state) => state.prodotto.prodottoList);
   const token = useSelector((state) => state.user.user.token);
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
+  const [open, setOpen] = React.useState(false);
+  const [options, setOptions] = React.useState([]);
+  const loading = open && options.length === 0;
   const navigate = useNavigate();
 
   const isMenuOpen = Boolean(anchorEl);
@@ -99,8 +112,35 @@ export default function NavBarComponents() {
   useEffect(() => {
     dispatch(getPreferitiList(token, user.id));
     dispatch(getCarrelloList(token, user.id));
+    dispatch(getProdottoList());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  React.useEffect(() => {
+    let active = true;
+
+    if (!loading) {
+      return undefined;
+    }
+
+    (async () => {
+      await sleep(1e3); // For demo purposes.
+
+      if (active) {
+        setOptions([...prodottoList]);
+      }
+    })();
+
+    return () => {
+      active = false;
+    };
+  }, [loading]);
+
+  React.useEffect(() => {
+    if (!open) {
+      setOptions([]);
+    }
+  }, [open]);
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -271,7 +311,7 @@ export default function NavBarComponents() {
           >
             PAPYRUS
           </Typography>
-          <Search>
+          {/*           <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -279,7 +319,42 @@ export default function NavBarComponents() {
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
             />
-          </Search>
+          </Search> */}
+          <Autocomplete
+            className="searchBar"
+            sx={{ width: 300 }}
+            open={open}
+            onOpen={() => {
+              setOpen(true);
+            }}
+            onClose={() => {
+              setOpen(false);
+            }}
+            isOptionEqualToValue={(option, value) =>
+              option.nome === value.title
+            }
+            getOptionLabel={(option) => option.nome }
+            options={options} 
+            loading={loading}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Cerca"
+                InputProps={{
+                  ...params.InputProps,
+                  endAdornment: (
+                    <React.Fragment>
+                      {loading ? (
+                        <CircularProgress color="inherit" size={20} />
+                      ) : null}
+                      {params.InputProps.endAdornment}
+                    </React.Fragment>
+                  ),
+                }}
+              />
+            )}
+          />
+
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", sm: "flex", md: "flex" } }}>
             <IconButton

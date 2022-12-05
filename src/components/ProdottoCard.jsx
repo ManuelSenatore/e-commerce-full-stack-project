@@ -1,9 +1,11 @@
 import React from "react";
 import { Card, Button, Col } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import ButtonAcquistaComponent from "./ButtonAcquistaComponent";
 import LikeComponent from "./LikeComponent";
 
 const ProdottoCard = (props) => {
+  const navigate = useNavigate();
 
   return (
     <Col xs={6} sm={6} md={4} className="">
@@ -12,10 +14,17 @@ const ProdottoCard = (props) => {
         key={props.i}
         style={{ border: "none", width: 100 + "%" }}
       >
-        <LikeComponent prodotto={props.prodotto}/>  {/* Icona per aggiungere ai preferiti */}
-        <Card.Img variant="top" src={props.prodotto.immagineUrl} />
+        <LikeComponent prodotto={props.prodotto} />{" "}
+        {/* Icona per aggiungere ai preferiti */}
+        <Card.Img
+          style={{cursor: "pointer"}}
+          onClick={() => navigate("/dettagli" + props.prodotto.id)}
+          variant="top"
+          src={props.prodotto.immagineUrl}
+        />
         <Card.Body className="text-center cardButton">
-          <ButtonAcquistaComponent prodotto={props.prodotto.id}/> {/* Bottone per aggiungere al carrello */}
+          <ButtonAcquistaComponent prodotto={props.prodotto.id} />{" "}
+          {/* Bottone per aggiungere al carrello */}
           <Card.Title className="mt-2">
             {props.prodotto.nome.substring(0, 20) + "..."}
           </Card.Title>

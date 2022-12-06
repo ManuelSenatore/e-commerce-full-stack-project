@@ -7,19 +7,18 @@
   width: 50px;
   padding: 1px;
   border-radius: 50%;
-  margin-right: 2rem;
+  margin-right: 1rem;
 }
+
 .navBar{
   background: #b11616 !important;
   box-shadow: inset 19px 19px 39px #5a0b0b,
               inset -19px -19px 39px #ff2121 !important;   
-
-       
 }
+
 .pageContainer{
   margin-top: 5rem;
 }
-
 
 .hvr-underline-from-center {
   display: inline-block;
@@ -203,6 +202,7 @@
 .titleImage{
   font-family: fantasy;
   font-size: 7rem;
+  text-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
 }
 
 @media screen and (max-width: 640px) {
@@ -210,3 +210,31 @@
     font-size: 4rem;
   }
 }
+
+@media screen and (min-width: 1200px) {
+  .caroselloText{
+  margin-bottom: 15rem;
+}
+
+.titleCarousel{
+  text-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
+  font-size: 7rem;
+  font-family: fantasy;
+}
+}
+
+@media screen and (max-width: 600px) {
+.titleCarousel{
+  text-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
+  font-size: 1.5rem;
+  font-family: fantasy;
+}
+}
+
+@media screen and (min-width: 610px) and (max-width: 1200px) {
+  .titleCarousel{
+    text-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
+    font-size: 4rem;
+    font-family: fantasy;
+  }
+  }

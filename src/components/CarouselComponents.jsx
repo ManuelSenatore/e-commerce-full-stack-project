@@ -1,3 +1,4 @@
+import { Button } from '@mui/material';
 import Carousel from 'react-bootstrap/Carousel';
 
 function CarouselComponents() {
@@ -9,21 +10,21 @@ function CarouselComponents() {
           src="https://iili.io/HfHX36x.jpg"
           alt="First slide"
         />
-        <Carousel.Caption>
-          <h2>Tutto quello che cerchi</h2>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        <Carousel.Caption className='caroselloText'>
+          <h2 className='titleCarousel'>Tutto quello che cerchi</h2>
+          <Button>Vai</Button>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
         <img
-          className="d-block w-100 h-80"
+          className="d-block w-100"
           src="https://iili.io/Hf2hIZ7.jpg"
           alt="Second slide"
         />
 
-        <Carousel.Caption>
-          <h2>Per rendere il tuo ufficio ancora più confortevole</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <Carousel.Caption className='caroselloText'>
+          <h2 className='titleCarousel'>Per rendere il tuo ufficio ancora più confortevole</h2>
+          <Button>Vai</Button>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
@@ -33,11 +34,9 @@ function CarouselComponents() {
           alt="Third slide"
         />
 
-        <Carousel.Caption>
-          <h2>La scuola con noi è ancora più bella</h2>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-          </p>
+        <Carousel.Caption className='caroselloText'>
+          <h2 className='titleCarousel'>La scuola con noi è ancora più bella</h2>
+          <Button>Vai</Button>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>

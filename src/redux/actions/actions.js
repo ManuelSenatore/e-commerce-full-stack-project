@@ -4,6 +4,7 @@ export const LOG_OUT = "LOG_OUT";
 export const SET_PRODOTTO_LIST = "SET_PRODOTTO_LIST";
 export const SET_PREFERITI_LIST = "SET_PREFERITI_LIST";
 export const SET_CARRELLO_LIST = "SET_CARRELLO_LIST";
+export const SET_CATEGORIA_LIST = "SET_CATEGORIA_LIST";
 
 export const setUser = (user) => ({
   type: SET_USER,
@@ -27,6 +28,11 @@ export const setPreferitiList = (preferitiList) => ({
 export const setCarrelloList = (carrelloList) => ({
   type: SET_CARRELLO_LIST,
   payload: carrelloList
+})
+
+export const setCategoriaList = (categoriaList) => ({
+  type: SET_CATEGORIA_LIST,
+  payload: categoriaList
 })
 
 export const logIn = (obj) => {
@@ -124,6 +130,27 @@ export const getCarrelloList = (key, id) => {
               const data = await response.json ();
               dispatch(setCarrelloList(data))
               console.log(response);
+              console.log ( data );
+          } else {
+              console.log ( "Error fetching results" );
+          }
+      } catch ( error ) {
+          console.log ( error );
+      }
+  };
+};
+
+export const getCategoriaList = (categoria) => {
+  const baseEndpoint = `http://localhost:8080/api/prodotti/categoria/${categoria}`;
+  console.log ( "eseguo get categoria list" );
+  return async (dispatch ) => {
+      try {
+          const response = await fetch ( baseEndpoint , {
+              method : "GET" ,
+          } );
+          if ( response.ok ) {
+              const data = await response.json ();
+              dispatch(setCategoriaList(data))
               console.log ( data );
           } else {
               console.log ( "Error fetching results" );

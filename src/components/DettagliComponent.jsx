@@ -30,9 +30,9 @@ const DettagliComponent = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <Container  className="pageContainer ">
+    <Container  className="pageContainer">
       {data && (
-        <Row style={{ height: "100vh" }}>
+        <Row>
           <Col
             xs={12}
             sm={12}
@@ -41,7 +41,7 @@ const DettagliComponent = () => {
             className="d-flex justify-content-center align-items-center p-0"
           >
             <img
-              style={{ maxHeight: "80%" }}
+              style={{ maxHeight: "100%", maxWidth: "100%" }}
               src={data.immagineUrl}
               alt="Immagine"
             />

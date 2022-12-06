@@ -321,7 +321,7 @@ export default function NavBarComponents() {
             />
           </Search> */}
           <Autocomplete
-            className="searchBar"
+            className="searchBar "
             sx={{ width: 300 }}
             open={open}
             onOpen={() => {

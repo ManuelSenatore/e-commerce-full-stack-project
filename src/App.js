@@ -18,6 +18,11 @@ import SuccessComponent from "./components/pagamento/SuccessComponent";
 import FailureComponent from "./components/pagamento/FailureComponent";
 import CheckoutComponent from "./components/CheckoutComponent";
 import DettagliComponent from "./components/DettagliComponent";
+import FooterComponent from "./components/FooterComponent";
+import ScuolaComponent from "./components/FilterComponents/ScuolaComponent";
+import CancelleriaComponent from "./components/FilterComponents/CancelleriaComponent";
+import UfficioComponent from "./components/FilterComponents/UfficioComponent";
+import TempoLiberoComponent from "./components/FilterComponents/TempoLiberoComponent";
 
 
 function App() {
@@ -35,8 +40,13 @@ function App() {
           <Route path="payment/failure" element={<FailureComponent />} />
           <Route path="/checkout" element={<CheckoutComponent />} />
           <Route path="/dettagli:prodottoId" element={<DettagliComponent />} />
+          <Route path="/scuola" element={<ScuolaComponent />} />
+          <Route path="/cancelleria" element={<CancelleriaComponent />} />
+          <Route path="/ufficio" element={<UfficioComponent />} />
+          <Route path="/svago" element={<TempoLiberoComponent />} />
         </Routes>
       </Container>
+      <FooterComponent />
     </BrowserRouter>
   );
 }

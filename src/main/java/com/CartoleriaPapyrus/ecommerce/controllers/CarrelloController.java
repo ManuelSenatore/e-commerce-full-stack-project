@@ -5,6 +5,7 @@ import com.CartoleriaPapyrus.ecommerce.entities.User;
 import com.CartoleriaPapyrus.ecommerce.services.CarrelloService;
 import com.CartoleriaPapyrus.ecommerce.utils.RequestModels.AggiungiAlCarrelloRequest;
 import com.CartoleriaPapyrus.ecommerce.utils.RequestModels.CarrelloRequest;
+import com.CartoleriaPapyrus.ecommerce.utils.RequestModels.UpdateQuantityRequest;
 import com.CartoleriaPapyrus.ecommerce.utils.common.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,18 @@ public class CarrelloController {
         carrelloService.deleteElement(elementoId, userId);
 
         return new ResponseEntity<>(new ApiResponse(true, "Elemento eliminato"), HttpStatus.OK);
+    }
+
+     // PUT QUANTITY
+    @PutMapping("update/{elementoId}")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<Carrello> update(@RequestBody UpdateQuantityRequest carrelloRequest, @PathVariable("elementoId") Long elementoId) throws Exception {
+        try {
+            return new ResponseEntity<>(carrelloService.update(carrelloRequest, elementoId), HttpStatus.OK);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

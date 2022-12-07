@@ -6,6 +6,7 @@ import com.CartoleriaPapyrus.ecommerce.entities.Role;
 import com.CartoleriaPapyrus.ecommerce.entities.RoleType;
 import com.CartoleriaPapyrus.ecommerce.entities.User;
 import com.CartoleriaPapyrus.ecommerce.services.ComuneService;
+import com.CartoleriaPapyrus.ecommerce.services.OrderService;
 import com.CartoleriaPapyrus.ecommerce.services.RoleService;
 import com.CartoleriaPapyrus.ecommerce.services.UserService;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+
+import static com.stripe.Stripe.apiKey;
 
 @SpringBootApplication
 public class ECommerceApplication implements CommandLineRunner {
@@ -34,13 +37,13 @@ public class ECommerceApplication implements CommandLineRunner {
 	ComuneService comuneService;
 
 
+
 	public static void main(String[] args) {
 		SpringApplication.run(ECommerceApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-
 		logger.info("CONTROLLO LA PRESENZA DEI RUOLI");
 		List<Role> roles = roleService.getAll();
 

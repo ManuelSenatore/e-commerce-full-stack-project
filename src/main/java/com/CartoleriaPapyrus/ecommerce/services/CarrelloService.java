@@ -6,7 +6,10 @@ import com.CartoleriaPapyrus.ecommerce.repositories.CarrelloRepository;
 import com.CartoleriaPapyrus.ecommerce.utils.RequestModels.AggiungiAlCarrelloRequest;
 import com.CartoleriaPapyrus.ecommerce.utils.RequestModels.CarrelloRequest;
 import com.CartoleriaPapyrus.ecommerce.utils.RequestModels.ElementoDelCarrello;
+import com.CartoleriaPapyrus.ecommerce.utils.RequestModels.UpdateQuantityRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,8 +29,6 @@ public class CarrelloService {
     @Autowired
     UserService userService;
 
-    @Autowired
-    IndirizzoService indirizzoService;
 
 
     // CREATE AND SAVE
@@ -71,5 +72,23 @@ public class CarrelloService {
             throw new Exception( "Utente non trovato");
         }
         carrelloRepository.delete(carr);
+    }
+
+    public Carrello update(UpdateQuantityRequest updateQuantityRequest, Long id) throws Exception {
+        Optional<Carrello> carrFind = carrelloRepository.findById(id);
+        if (carrFind.isPresent()) {
+            Carrello carrello = Carrello.builder()
+                    .id(carrFind.get().getId())
+                    .user(carrFind.get().getUser())
+                    .prodotto(carrFind.get().getProdotto())
+                    .createdDate(carrFind.get().getCreatedDate())
+                    .quantity(updateQuantityRequest.getQuantity())
+                    .build();
+            carrelloRepository.save(carrello);
+            return carrello;
+        }else{
+            throw new Exception( "Elemento non trovato" );
+        }
+
     }
 }

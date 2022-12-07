@@ -11,7 +11,7 @@ public class CheckoutRequest {
     private String productName;
     private int quantity;
     private double price;
-    private long productId;
-    private long userId;
+    private int productId;
+    private int userId;
 
 }

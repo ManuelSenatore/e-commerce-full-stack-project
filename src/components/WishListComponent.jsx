@@ -14,6 +14,10 @@ const WishListComponent = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     if (token === undefined) {
       navigate("/login");
     }

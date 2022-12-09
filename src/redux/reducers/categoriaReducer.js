@@ -1,4 +1,4 @@
-import { SET_CATEGORIA_LIST } from "../actions/actions";
+import { ORDER_CATEGORIA_LIST, SET_CATEGORIA_LIST } from "../actions/actions";
 
 const initialState = {
     categoriaList : []
@@ -11,6 +11,11 @@ const categoriaReducer = (state = initialState, action) => {
             ...state,
             categoriaList : action.payload
         };
+        case ORDER_CATEGORIA_LIST :
+            return{
+                ...state,
+                categoriaList : action.payload
+            };
         default:
             return state;
     }

@@ -256,3 +256,9 @@
   flex-wrap: nowrap;
   width: 10rem;
 }
+.orderingBar{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content:space-between;
+}

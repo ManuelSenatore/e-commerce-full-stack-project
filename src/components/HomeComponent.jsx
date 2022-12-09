@@ -10,8 +10,14 @@ import ProdottoCard from "./ProdottoCard";
 const HomeComponent = () => {
   const prodottoList = useSelector((state) => state.prodotto.prodottoList);
   const dispatch = useDispatch();
-  const [ultimiArrivi, setUltimiArrivi] = useState(prodottoList.slice(-15, prodottoList.length).reverse());
+  const [ultimiArrivi, setUltimiArrivi] = useState(
+    prodottoList.slice(-15, prodottoList.length).reverse()
+  );
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
   useEffect(() => {
     dispatch(getProdottoList());
     console.log(prodottoList);

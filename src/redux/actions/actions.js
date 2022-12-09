@@ -5,6 +5,7 @@ export const SET_PRODOTTO_LIST = "SET_PRODOTTO_LIST";
 export const SET_PREFERITI_LIST = "SET_PREFERITI_LIST";
 export const SET_CARRELLO_LIST = "SET_CARRELLO_LIST";
 export const SET_CATEGORIA_LIST = "SET_CATEGORIA_LIST";
+export const ORDER_CATEGORIA_LIST = "ORDER_CATEGORIA_LIST"
 
 export const setUser = (user) => ({
   type: SET_USER,
@@ -32,6 +33,11 @@ export const setCarrelloList = (carrelloList) => ({
 
 export const setCategoriaList = (categoriaList) => ({
   type: SET_CATEGORIA_LIST,
+  payload: categoriaList
+})
+
+export const orderCategoriaList = (categoriaList) => ({
+  type: ORDER_CATEGORIA_LIST,
   payload: categoriaList
 })
 
@@ -151,6 +157,27 @@ export const getCategoriaList = (categoria) => {
           if ( response.ok ) {
               const data = await response.json ();
               dispatch(setCategoriaList(data))
+              console.log ( data );
+          } else {
+              console.log ( "Error fetching results" );
+          }
+      } catch ( error ) {
+          console.log ( error );
+      }
+  };
+};
+
+export const orderingCategoriaList = (categoria, value) => {
+  const baseEndpoint = `http://localhost:8080/api/prodotti/categoria/${categoria}/${value}`;
+  console.log ( "eseguo get categoria list" );
+  return async (dispatch ) => {
+      try {
+          const response = await fetch ( baseEndpoint , {
+              method : "GET" ,
+          } );
+          if ( response.ok ) {
+              const data = await response.json ();
+              dispatch(orderCategoriaList(data))
               console.log ( data );
           } else {
               console.log ( "Error fetching results" );

@@ -11,7 +11,10 @@ const CarrelloComponent = () => {
   const token = useSelector((state) => state.user.user.token);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     if (token === undefined) {

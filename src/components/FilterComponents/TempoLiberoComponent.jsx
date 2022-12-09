@@ -5,10 +5,15 @@ import ProdottoCard from "../ProdottoCard";
 import { getCategoriaList } from "../../redux/actions/actions";
 import BackImageComponent from "./BackImageComponent";
 import FilterBar from "../FilterBar";
+import OrderByComponent from "../OrderByComponent";
 
 const TempoLiberoComponent = () => {
   const categoriaList = useSelector((state) => state.categoria.categoriaList);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     dispatch(getCategoriaList("TEMPO_LIBERO"));
@@ -19,6 +24,7 @@ const TempoLiberoComponent = () => {
     <>
       <BackImageComponent />
       <FilterBar />
+      <OrderByComponent />
       <Container>
         <Row className="display-flex justify-content-beetween">
           {categoriaList.map((prodotto, i) => (
@@ -30,4 +36,4 @@ const TempoLiberoComponent = () => {
   );
 };
 
-export default TempoLiberoComponent
+export default TempoLiberoComponent;

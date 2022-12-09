@@ -29,7 +29,7 @@ function App() {
   return (
     <BrowserRouter>
       <NavBarComponents />
-      <Container fluid className="p-0">
+      <Container fluid className="p-0" style={{minHeight: "100vh"}}>
         <Routes>
           <Route path="/" element={<HomeComponent />} />
           <Route path="/login" element={<LoginComponent />} />

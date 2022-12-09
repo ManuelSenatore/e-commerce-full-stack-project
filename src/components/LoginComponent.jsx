@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Form, Button, Container } from "react-bootstrap";
+import { Form, Button, Container, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logIn } from "../redux/actions/actions";
-import { Alert, Snackbar } from "@mui/material";
+import GoogleLogin from "react-google-login";
+import { gapi } from "gapi-script";
 
 function LoginComponent() {
   const user = useSelector((state) => state.user.user);
@@ -11,6 +12,70 @@ function LoginComponent() {
   const dispatch = useDispatch(); // REDUX
 
   const navigate = useNavigate();
+
+  const clientId =
+    "201175694508-s161r8c4vgod5k3kjsp6jj1i8dgt5oad.apps.googleusercontent.com";
+
+  useEffect(() => {
+    const start = () => {
+      gapi.auth2.init({
+        clientId: clientId,
+      });
+    };
+    gapi.load("client: auth2", start);
+  }, []);
+
+  const signUp = async (obj) => {
+    const baseEndpoint = "http://localhost:8080/api/users/new-raw";
+
+    const header = {
+      "Content-type": "application/json",
+    };
+
+    try {
+      const response = await fetch(baseEndpoint, {
+        method: "POST",
+        headers: header,
+        body: JSON.stringify(obj),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        navigate("/login");
+      } else {
+        alert("Error fetching results");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onSuccess = (response) => {
+    const userDataSignup = {
+      nomeCompleto: response.profileObj.name,
+      username: response.profileObj.email,
+      email: response.profileObj.email,
+      password: response.profileObj.googleId,
+    };
+    try {
+      signUp(userDataSignup).then(() => {
+        //LOGIN
+        const userDataLogin = {
+          username: response.profileObj.email,
+          password: response.profileObj.googleId,
+        };
+        console.log(userDataLogin);
+        dispatch(logIn(userDataLogin));
+      });
+    } catch (e) {
+      console.log("ok");
+    }
+  };
+
+  const onFailure = (response) => {
+    console.log("Qualcosa è andato storto");
+  };
 
   const [formObj, setFormObj] = useState({
     // oggetto per la compilazione del form
@@ -29,11 +94,11 @@ function LoginComponent() {
   };
 
   useEffect(() => {
-    if(user.token){
-      navigate("/")
+    if (user.token) {
+      navigate("/");
     }
-  },[user.token])
-  
+  }, [user.token]);
+
   return (
     <Container className="pageContainer">
       <div
@@ -45,24 +110,11 @@ function LoginComponent() {
           fontSize: "1.5em",
         }}
       >
-        {/*           <Snackbar
-            anchorOrigin={{ vertical, horizontal }}
-            open={open}
-            onClose={handleClose}
-            message="Username o password errati!"
-            key={vertical + horizontal}
-          /> */}
         <Form
           onSubmit={(e) => {
             e.preventDefault();
             dispatch(logIn(formObj));
             console.log(user);
-            /* else {
-              handleClick({
-                vertical: 'top',
-                horizontal: 'center',
-              });
-            } */
           }}
         >
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -96,6 +148,16 @@ function LoginComponent() {
           >
             ACCEDI
           </Button>
+          <Row className="justify-content-center mt-5">
+            <GoogleLogin
+            className={"w-25"}
+            clientId={clientId}
+            onSuccess={onSuccess}
+            onFailure={onFailure}
+            cookiePolicy={"single_host_policy"}
+          />
+          </Row>
+          
         </Form>
       </div>
     </Container>

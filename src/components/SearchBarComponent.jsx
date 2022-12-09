@@ -44,7 +44,7 @@ export default function SearchBarComponent() {
     <div className="searchBar">
       <Autocomplete
         id="searchProdotto"
-        sx={{ width: 300 }}
+        sx={{ width: "100%"  }}
         options={maker()}
         autoHighlight
         getOptionLabel={(option) => option.label}

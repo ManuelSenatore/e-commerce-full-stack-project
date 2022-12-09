@@ -3,12 +3,25 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useDispatch, useSelector } from "react-redux";
 import { getPreferitiList } from "../redux/actions/actions";
 import { useLocation } from "react-router-dom";
+import { useState } from "react";
+import DialogComponent from "./DialogComponent";
+
 const LikeComponent = (props) => {
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.user.token);
   const preferitiList = useSelector((state) => state.preferiti.preferitiList);
   const dispatch = useDispatch();
   const location = useLocation();
+  const [dialogEliminazioneFlag, setDialogEliminazioneFlag] = useState(false);
+
+  const handleClickOpen = () => {
+    setDialogEliminazioneFlag(true);
+  };
+
+  const handleClose = () => {
+    setDialogEliminazioneFlag(false);
+  };
+
   const addToFavorite = async (prodottoId) => {
     const baseEndpoint = "http://localhost:8080/api/preferiti/aggiungi";
 
@@ -65,22 +78,28 @@ const LikeComponent = (props) => {
   };
   return (
     <>
-      <FavoriteIcon style={{cursor: "pointer", fontSize: "2rem"}}
+      <DialogComponent dialogEliminazioneFlag = {dialogEliminazioneFlag} handleClose={handleClose}/>
+      <FavoriteIcon
+        style={{ cursor: "pointer", fontSize: "2rem" }}
         color={
           preferitiList.some((el) => el.id === props.prodotto.id) ? "error" : ""
         }
         onClick={() => {
-            console.log(preferitiList.find((el) => el.id === props.prodotto.id));
+          console.log(preferitiList.find((el) => el.id === props.prodotto.id));
           if (preferitiList.some((el) => el.id === props.prodotto.id)) {
             removeToFavorite(
-              preferitiList.find((el) => el.id === props.prodotto.id).id           
+              preferitiList.find((el) => el.id === props.prodotto.id).id
             );
           } else {
-            addToFavorite(props.prodotto.id);
+            if (!token) {
+              setDialogEliminazioneFlag(true)
+            }else{
+              addToFavorite(props.prodotto.id);
+            }
+            
           }
         }}
-        className= "favoriteIcon"
-
+        className="favoriteIcon"
       />
     </>
   );

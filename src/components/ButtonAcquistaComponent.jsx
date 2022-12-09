@@ -6,6 +6,9 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import Button from "@mui/material/Button";
 import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
 import { useNavigate } from "react-router-dom";
+import DialogComponent from "./DialogComponent";
+import { useState } from "react";
+
 
 const ButtonAcquistaComponent = (props) => {
   const [loading, setLoading] = React.useState(false);
@@ -15,6 +18,15 @@ const ButtonAcquistaComponent = (props) => {
   const carrelloList = useSelector((state) => state.carrello.carrelloList);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [dialogEliminazioneFlag, setDialogEliminazioneFlag] = useState(false);
+
+  const handleClickOpen = () => {
+    setDialogEliminazioneFlag(true);
+  };
+
+  const handleClickClose = () => {
+    setDialogEliminazioneFlag(false);
+  };
 
   function handleClick() {
     setLoading(true);
@@ -48,7 +60,7 @@ const ButtonAcquistaComponent = (props) => {
         console.log(data);
         dispatch(getCarrelloList(token, user.id));
         handleClose();
-        setDisabled(true)
+        setDisabled(true);
       } else {
         alert("Error fetching results");
       }
@@ -59,6 +71,10 @@ const ButtonAcquistaComponent = (props) => {
 
   return (
     <>
+      <DialogComponent
+        dialogEliminazioneFlag={dialogEliminazioneFlag}
+        handleClose={handleClickClose}
+      />
       {carrelloList.cartItems.some(
         (el) => el.prodotto.id === props.prodotto
       ) ? (
@@ -75,10 +91,14 @@ const ButtonAcquistaComponent = (props) => {
           disabled={disabled}
           size="medium"
           onClick={() => {
-            addToFavorite(props.prodotto);
-            handleClick();
+            if (!token) {
+              setDialogEliminazioneFlag(true);
+            } else {
+              addToFavorite(props.prodotto);
+              handleClick();
+            }
           }}
-          endIcon={<AddShoppingCartIcon  />}
+          endIcon={<AddShoppingCartIcon />}
           loading={loading}
           loadingPosition="end"
           variant="contained"

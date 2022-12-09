@@ -1,15 +1,31 @@
+import { Button, Input } from "@mui/material";
 import React from "react";
-import { Col, Button, Card } from "react-bootstrap";
+import { Col, Card, InputGroup } from "react-bootstrap";
 import { MdDeleteForever } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getCarrelloList } from "../redux/actions/actions";
+import { useState } from "react";
+import ModalQuantityComponent from "./ModalQuantityComponent";
+import { useEffect } from "react";
+import ClearIcon from '@mui/icons-material/Clear';
 
 const CarrelloCard = (props) => {
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.user.token);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [formObj, setFormObj] = useState({
+    quantity: props.elemento.quantity,
+  });
+
+  const handleForm = (key, value) => {
+    // setta l'oggetto del form
+    setFormObj({
+      ...formObj,
+      [key] : value
+    })
+  };
 
   const removeToCarrello = async (elementoId) => {
     const baseEndpoint = `http://localhost:8080/api/carrello/delete/${elementoId}/${user.id}`;
@@ -36,32 +52,58 @@ const CarrelloCard = (props) => {
     }
   };
 
+  const updateQuantity = async (elementoId, formObj) => {
+    console.log(formObj);
+    const baseEndpoint = `http://localhost:8080/api/carrello/update/${elementoId}`;
+
+    const header = {
+      "Content-type": "application/json",
+      Authorization: `Bearer ${token}`,
+    };
+
+    try {
+      const response = await fetch(baseEndpoint, {
+        method: "PUT",
+        headers: header,
+        body: JSON.stringify(formObj),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        dispatch(getCarrelloList(token, user.id));
+      } else {
+        alert("Error fetching results");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    updateQuantity(props.elemento.id, formObj);
+  },[formObj.quantity])
+
   return (
-    <Col xs={6} sm={6} md={4}>
+    <Col className="mb-3" xs={12}>
       <Card
-        className="cardProdotto"
+        className="cardProdotto d-flex flex-row align-items-center"
         key={props.i}
-        style={{ border: "none", width: 100 + "%" }}
+        style={{ width: 100 + "%" }}
       >
-        <MdDeleteForever
-          onClick={() => {
-            removeToCarrello(props.elemento.id);
-            console.log(props.elemento.id);
-          }}
-          className="favoriteIcon"
-          style={{ cursor: "pointer" }}
-        />
-        <Card.Img
-          style={{ cursor: "pointer" }}
-          onClick={() => navigate("/dettagli" + props.elemento.prodotto.id)}
-          variant="top"
-          src={props.elemento.prodotto.immagineUrl}
-        />
-        <Card.Body className="text-center cardButton">
+        <div style={{ width: "10rem" }}>
+          <Card.Img
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate("/dettagli" + props.elemento.prodotto.id)}
+            variant="top"
+            src={props.elemento.prodotto.immagineUrl}
+          />
+        </div>
+        <Card.Body>
           <Card.Title className="mt-2">
-            {props.elemento.prodotto.nome.substring(0, 20) + "..."}
+            {props.elemento.prodotto.nome}
           </Card.Title>
-          <Card.Text style={{ color: "green", fontWeight: "bolder" }}>
+          <Card.Text className="flex-end" style={{ fontWeight: "bolder" }}>
             {props.elemento.prodotto.prezzo.toString().split(".")[0]},
             {props.elemento.prodotto.prezzo.toString().split(".")[1]
               ? props.elemento.prodotto.prezzo
@@ -79,7 +121,38 @@ const CarrelloCard = (props) => {
               : "00"}{" "}
             €
           </Card.Text>
+          <div class="form-sm" data-form-parent="">
+            <div class="input-group">
+              <Button
+                onClick={() => {
+                  handleForm("quantity", formObj.quantity - 1);
+                
+                }}
+                disabled={props.elemento.quantity === 1 ? true : false}
+              >
+                -
+              </Button>
+              <span>{formObj.quantity}</span>
+              <Button
+                onClick={() => {
+                  handleForm("quantity", props.elemento.quantity + 1);
+
+                }}
+              >
+                +
+              </Button>
+            </div>
+            <small class="invalid-feedback"></small>
+          </div>
         </Card.Body>
+        <ClearIcon
+          className="align-self-start"
+          onClick={() => {
+            removeToCarrello(props.elemento.id);
+            console.log(props.elemento.id);
+          }}
+          style={{ cursor: "pointer", color: "red" }}
+        />
       </Card>
     </Col>
   );

@@ -258,8 +258,8 @@ export default function NavBarComponents() {
             PAPYRUS
           </Typography>
           <SearchBarComponent />
-
           <Box sx={{ flexGrow: 1 }} />
+
           <Box sx={{ display: { xs: "none", sm: "flex", md: "flex" } }}>
             <IconButton
               onClick={() => {

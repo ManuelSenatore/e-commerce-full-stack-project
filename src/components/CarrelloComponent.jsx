@@ -11,6 +11,7 @@ const CarrelloComponent = () => {
   const token = useSelector((state) => state.user.user.token);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
 
   useEffect(() => {
     if (token === undefined) {
@@ -27,6 +28,7 @@ const CarrelloComponent = () => {
 
   return (
     <Container className="pageContainer">
+      <h2>CARRELLO</h2>
       <Row className="display-flex justify-content-beetween">
         {carrelloList.cartItems.length === 0 ? (
           <Col className="d-flex flex-column justify-content-center align-items-center ">

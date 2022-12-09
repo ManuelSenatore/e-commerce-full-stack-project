@@ -44,6 +44,26 @@ public class ProdottoService {
         return repository.findProdottoByCategoria(Categoria.valueOf(categoria));
     }
 
+    // GET BY CATEGORIA AND ORDER BY NOME ASC
+    public List<Prodotto> getByCategoryOrderByNomeAsc(String categoria){
+        return repository.findProdottoByCategoriaAndOrderByNomeAsc(Categoria.valueOf(categoria));
+    }
+
+    // GET BY CATEGORIA AND ORDER BY NOME DESC
+    public List<Prodotto> getByCategoryOrderByNomeDesc(String categoria){
+        return repository.findProdottoByCategoriaAndOrderByNomeDesc(Categoria.valueOf(categoria));
+    }
+
+    // GET BY CATEGORIA AND ORDER BY PREZZO ASC
+    public List<Prodotto> getByCategoryOrderByPrezzoAsc(String categoria){
+        return repository.findProdottoByCategoriaAndOrderByPrezzoAsc(Categoria.valueOf(categoria));
+    }
+
+    // GET BY CATEGORIA AND ORDER BY PREZZO DESC
+    public List<Prodotto> getByCategoryOrderByPrezzoDesc(String categoria){
+        return repository.findProdottoByCategoriaAndOrderByPrezzoDesc(Categoria.valueOf(categoria));
+    }
+
     // CREATE
     public void save( Prodotto prodotto ) {
         repository.save( prodotto );

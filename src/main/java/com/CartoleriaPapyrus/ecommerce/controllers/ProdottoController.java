@@ -72,6 +72,58 @@ public class ProdottoController {
       return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
     }
 
+    @GetMapping("/categoria/{categoria}/nomeDesc")
+    public ResponseEntity<List<Prodotto>> getProdottoByCategoriaOrderByNameDesc( @PathVariable("categoria") String categoria ) {
+        try{
+            return new ResponseEntity<>(
+                    service.getByCategoryOrderByNomeDesc( categoria ),
+                    HttpStatus.OK
+            );
+        } catch( Exception e ) {
+            log.error( e.getMessage() );
+        }
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+    }
+
+    @GetMapping("/categoria/{categoria}/nomeAsc")
+    public ResponseEntity<List<Prodotto>> getProdottoByCategoriaOrderByNameAsc( @PathVariable("categoria") String categoria ) {
+        try{
+            return new ResponseEntity<>(
+                    service.getByCategoryOrderByNomeAsc( categoria ),
+                    HttpStatus.OK
+            );
+        } catch( Exception e ) {
+            log.error( e.getMessage() );
+        }
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+    }
+
+    @GetMapping("/categoria/{categoria}/prezzoAsc")
+    public ResponseEntity<List<Prodotto>> getProdottoByCategoriaOrderByPrezzoAsc( @PathVariable("categoria") String categoria ) {
+        try{
+            return new ResponseEntity<>(
+                    service.getByCategoryOrderByPrezzoAsc( categoria ),
+                    HttpStatus.OK
+            );
+        } catch( Exception e ) {
+            log.error( e.getMessage() );
+        }
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+    }
+
+    @GetMapping("/categoria/{categoria}/prezzoDesc")
+    public ResponseEntity<List<Prodotto>> getProdottoByCategoriaOrderByPrezzoDesc( @PathVariable("categoria") String categoria ) {
+        try{
+            return new ResponseEntity<>(
+                    service.getByCategoryOrderByPrezzoDesc( categoria ),
+                    HttpStatus.OK
+            );
+        } catch( Exception e ) {
+            log.error( e.getMessage() );
+        }
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+    }
+
     // CREATE
     @PostMapping("/new-raw")
     @PreAuthorize("hasRole('ADMIN')")

@@ -16,4 +16,24 @@ public interface ProdottoRepository extends JpaRepository<Prodotto, Long> {
             value = "select p from Prodotto p where p.categoria = :categoria"
     )
     List<Prodotto> findProdottoByCategoria(@Param("categoria") Categoria categoria);
+
+    @Query(
+            value = "select p from Prodotto p where p.categoria = :categoria order by nome asc"
+    )
+    List<Prodotto> findProdottoByCategoriaAndOrderByNomeAsc(@Param("categoria") Categoria categoria);
+
+    @Query(
+            value = "select p from Prodotto p where p.categoria = :categoria order by nome desc"
+    )
+    List<Prodotto> findProdottoByCategoriaAndOrderByNomeDesc(@Param("categoria") Categoria categoria);
+
+    @Query(
+            value = "select p from Prodotto p where p.categoria = :categoria order by prezzo desc"
+    )
+    List<Prodotto> findProdottoByCategoriaAndOrderByPrezzoDesc(@Param("categoria") Categoria categoria);
+
+    @Query(
+            value = "select p from Prodotto p where p.categoria = :categoria order by prezzo asc"
+    )
+    List<Prodotto> findProdottoByCategoriaAndOrderByPrezzoAsc(@Param("categoria") Categoria categoria);
 }

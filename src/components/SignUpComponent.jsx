@@ -67,6 +67,7 @@ const SignUpComponent = () => {
                 onChange={(e) => handleForm("nomeCompleto", e.target.value)}
                 type="text"
                 placeholder="Inserisci nome"
+                required= "true"
               />
             </Form.Group>
 
@@ -78,6 +79,7 @@ const SignUpComponent = () => {
                 onChange={(e) => handleForm("username", e.target.value)}
                 type="text"
                 placeholder="Inserisci username"
+                required= "true"
               />
             </Form.Group>
 
@@ -88,6 +90,7 @@ const SignUpComponent = () => {
                 onChange={(e) => handleForm("email", e.target.value)}
                 type="email"
                 placeholder="Inserisci la tua email"
+                required= "true"
               />
             </Form.Group>
 
@@ -99,6 +102,7 @@ const SignUpComponent = () => {
                 type="password"
                 placeholder="Inserisci Password"
                 autoComplete="current-password"
+                required= "true"
               />
             </Form.Group>
             <Button

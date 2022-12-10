@@ -119,6 +119,7 @@ function LoginComponent() {
                 type="text"
                 autoComplete="current-password"
                 placeholder="Inserisci il nome utente"
+                required= "true"
               />
               <Form.Text className="text-muted">
                 Non condividere mai la password con nessuno.
@@ -133,6 +134,7 @@ function LoginComponent() {
                 type="password"
                 autoComplete="current-password"
                 placeholder="Inserisci la tua password"
+                required= "true"
               />
             </Form.Group>
             <Button

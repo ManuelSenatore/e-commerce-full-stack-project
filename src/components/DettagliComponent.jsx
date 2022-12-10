@@ -26,11 +26,15 @@ const DettagliComponent = () => {
     }
   };
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     getDettagliProdotto();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <Container  className="pageContainer">
+    <Container className="pageContainer">
       {data && (
         <Row>
           <Col
@@ -67,11 +71,14 @@ const DettagliComponent = () => {
               €
             </span>
             <p>{data.descrizione}</p>
-            <div style={{width: "100%"}} className="d-flex align-items-center justify-content-evenly mb-4">
-                <div className="divRelative">
+            <div
+              style={{ width: "100%" }}
+              className="d-flex align-items-center justify-content-evenly mb-4"
+            >
+              <div className="divRelative">
                 <LikeComponent prodotto={data} />
-                </div>
-              
+              </div>
+
               <ButtonAcquistaComponent prodotto={data.id} />
             </div>
           </Col>

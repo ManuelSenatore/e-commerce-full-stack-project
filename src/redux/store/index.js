@@ -7,6 +7,7 @@ import prodottoReducer from "../reducers/prodottoReducer";
 import preferitiReducer from "../reducers/preferitiReducer";
 import carrelloReducer from "../reducers/carrelloReducer";
 import categoriaReducer from "../reducers/categoriaReducer";
+import orderReducer from "../reducers/orderReducer";
 
 
 const persistConfig = {
@@ -25,7 +26,8 @@ const mergedReducers = combineReducers({
   prodotto : prodottoReducer,
   preferiti : preferitiReducer,
   carrello : carrelloReducer,
-  categoria : categoriaReducer
+  categoria : categoriaReducer,
+  order : orderReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, mergedReducers);

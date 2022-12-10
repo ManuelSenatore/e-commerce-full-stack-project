@@ -1,7 +1,10 @@
 import { Button } from '@mui/material';
 import Carousel from 'react-bootstrap/Carousel';
+import { useNavigate } from 'react-router-dom'
 
 function CarouselComponents() {
+  const navigate = useNavigate();
+
   return (
     <Carousel fade >
       <Carousel.Item>
@@ -12,19 +15,19 @@ function CarouselComponents() {
         />
         <Carousel.Caption className='caroselloText'>
           <h2 className='titleCarousel'>Tutto quello che cerchi</h2>
-          <Button>Vai</Button>
+          <Button onClick={() => navigate("/cancelleria")} variant='outlined' color='secondary'>Inizia lo shop</Button>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="https://iili.io/Hf2hIZ7.jpg"
+          src="https://iili.io/HnGA0Lg.jpg"
           alt="Second slide"
         />
 
         <Carousel.Caption className='caroselloText'>
           <h2 className='titleCarousel'>Per rendere il tuo ufficio ancora più confortevole</h2>
-          <Button>Vai</Button>
+          <Button onClick={() => navigate("/ufficio")} variant='outlined' color='secondary'>Inizia lo shop</Button>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
@@ -36,7 +39,7 @@ function CarouselComponents() {
 
         <Carousel.Caption className='caroselloText'>
           <h2 className='titleCarousel'>La scuola con noi è ancora più bella</h2>
-          <Button>Vai</Button>
+          <Button onClick={() => navigate("/scuola")} variant='outlined' color='secondary'>Inizia lo shop</Button>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>

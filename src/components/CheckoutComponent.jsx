@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getCarrelloList } from "../redux/actions/actions";
+import { getCarrelloList, setOrderList } from "../redux/actions/actions";
 import axios from "axios";
 
 const CheckoutComponent = () => {
@@ -14,6 +14,7 @@ const CheckoutComponent = () => {
   const dispatch = useDispatch();
   const [checkoutBodyArray, setCheckoutBodyArray] = useState([])
   const [stripe, setStripe] = useState(window.Stripe(stripeAPIToken))
+  const orderList = useSelector((state) => state.order.orderList)
 
   for (let i = 0; i < carrelloList.cartItems.length; i++) {
     checkoutBodyArray.push({
@@ -36,6 +37,7 @@ const CheckoutComponent = () => {
         localStorage.setItem("sessionId", response.data.sessionId);
         console.log("session", response.data);
         stripe.redirectToCheckout({sessionId: response.data.sessionId})
+          dispatch(setOrderList(carrelloList))
       })
       .catch((err) => console.log(err));
   };

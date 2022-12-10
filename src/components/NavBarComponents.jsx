@@ -164,14 +164,6 @@ export default function NavBarComponents() {
           >
             Accedi
           </MenuItem>
-          <MenuItem
-            onClick={() => {
-              handleMenuClose();
-              navigate("/signup");
-            }}
-          >
-            Registrati
-          </MenuItem>
         </Menu>
       )}
     </Menu>

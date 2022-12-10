@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form, Button, Container, Row } from "react-bootstrap";
+import { Form, Button, Container, Row, Card } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logIn } from "../redux/actions/actions";
@@ -100,66 +100,59 @@ function LoginComponent() {
   }, [user.token]);
 
   return (
-    <Container className="pageContainer">
-      <div
-        style={{
-          color: "royalblue",
-          borderRadius: "5px",
-          padding: "20px",
-          backgroundColor: "aliceblue",
-          fontSize: "1.5em",
-        }}
-      >
-        <Form
-          onSubmit={(e) => {
-            e.preventDefault();
-            dispatch(logIn(formObj));
-            console.log(user);
-          }}
-        >
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Nome utente</Form.Label>
-            <Form.Control
-              value={formObj.username}
-              onChange={(e) => handleForm("username", e.target.value)}
-              type="text"
-              autoComplete="current-password"
-              placeholder="Inserisci il nome utente scelto in fase di registrazione"
-            />
-            <Form.Text className="text-muted">
-              Non condividere mai la password con nessuno.
-            </Form.Text>
-          </Form.Group>
-
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              value={formObj.password}
-              onChange={(e) => handleForm("password", e.target.value)}
-              type="password"
-              autoComplete="current-password"
-              placeholder="Inserisci la tua password"
-            />
-          </Form.Group>
-          <Button
-            className={"w-25 d-block mx-auto my-2"}
-            variant="primary"
-            type="submit"
+    <Container fluid className=" backgroundContainer">
+      <Card className="cardLogin" style={{ width: "20rem" }}>
+        <Card.Header className="text-center">LOGIN</Card.Header>
+        <Card.Body>
+          <Form
+            onSubmit={(e) => {
+              e.preventDefault();
+              dispatch(logIn(formObj));
+              console.log(user);
+            }}
           >
-            ACCEDI
-          </Button>
-          <Row className="justify-content-center mt-5">
-            <GoogleLogin
-            className={"w-25"}
-            clientId={clientId}
-            onSuccess={onSuccess}
-            onFailure={onFailure}
-            cookiePolicy={"single_host_policy"}
-          />
-          </Row>
-          
-        </Form>
-      </div>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Nome utente</Form.Label>
+              <Form.Control
+                value={formObj.username}
+                onChange={(e) => handleForm("username", e.target.value)}
+                type="text"
+                autoComplete="current-password"
+                placeholder="Inserisci il nome utente"
+              />
+              <Form.Text className="text-muted">
+                Non condividere mai la password con nessuno.
+              </Form.Text>
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                value={formObj.password}
+                onChange={(e) => handleForm("password", e.target.value)}
+                type="password"
+                autoComplete="current-password"
+                placeholder="Inserisci la tua password"
+              />
+            </Form.Group>
+            <Button
+              className={"w-100 d-block mx-auto my-4"}
+              variant="primary"
+              type="submit"
+            >
+              ACCEDI
+            </Button>
+              <GoogleLogin
+                className={"w-100"}
+                clientId={clientId}
+                onSuccess={onSuccess}
+                onFailure={onFailure}
+                cookiePolicy={"single_host_policy"}
+              />
+          </Form>
+        </Card.Body>
+        <Card.Footer className="text-center"><Link to={"/signup"}>Se non sei registrato clicca qui.</Link></Card.Footer>
+      </Card>
     </Container>
   );
 }

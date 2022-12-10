@@ -87,7 +87,7 @@ const CarrelloCard = (props) => {
   return (
     <Col className="mb-3" xs={12}>
       <Card
-        className="cardProdotto d-flex flex-row align-items-center"
+        className="cardProdotto cardCarrello d-flex flex-row align-items-center"
         key={props.i}
         style={{ width: 100 + "%" }}
       >

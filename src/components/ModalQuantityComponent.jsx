@@ -9,6 +9,8 @@ import {
     Slide
 } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import ProdottoOrdineCard from './ProdottoOrdineCard';
 
 
 const Transition = React.forwardRef ( function Transition(props , ref) {
@@ -16,21 +18,24 @@ const Transition = React.forwardRef ( function Transition(props , ref) {
 } );
 
 const ModalQuantityComponent = (props) => {
-    const navigate = useNavigate();
 
     return (
         <Dialog
-            open={ props.dialogQuantityFlag }
+            open={ props.dialogFlag }
             onClose={props.handleClose}
             maxWidth={ 'xs' }
             TransitionComponent={ Transition }
             keepMounted
             aria-describedby="alert-dialog-slide-description"
         >
-            <DialogTitle>{ "Modifica la quantità!" }</DialogTitle>
             <DialogContent>
+                <DialogTitle className='text-center'>Prodotti Acquistati</DialogTitle>
                 <DialogContentText id="alert-dialog-slide-description">
-                    
+                    {
+                        props.prodotto.cartItems.map((elemento, i) => {
+                           return <ProdottoOrdineCard elemento={elemento} key={i} />
+                        })
+                    }
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
@@ -38,14 +43,7 @@ const ModalQuantityComponent = (props) => {
                     variant={ "outlined" }
                     color={ "error" }
                     onClick={props.handleClose}
-                >Anulla</Button>
-                <Button
-                    variant={ "outlined" }
-                    color={ "primary" }
-                    onClick={ () => {
-                        navigate("/login")
-                    } }
-                >Vai al Login</Button>
+                >Chiudi</Button>
             </DialogActions>
         </Dialog>
     );

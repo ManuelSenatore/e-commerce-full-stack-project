@@ -11,7 +11,6 @@ import { Container } from "react-bootstrap";
 import HomeComponent from "./components/HomeComponent";
 import LoginComponent from "./components/LoginComponent";
 import SignUpComopnent from "./components/SignUpComponent";
-import MapsComponent from "./components/MapsComponent";
 import WishListComponent from "./components/WishListComponent";
 import CarrelloComponent from "./components/CarrelloComponent";
 import SuccessComponent from "./components/pagamento/SuccessComponent";
@@ -23,6 +22,7 @@ import ScuolaComponent from "./components/FilterComponents/ScuolaComponent";
 import CancelleriaComponent from "./components/FilterComponents/CancelleriaComponent";
 import UfficioComponent from "./components/FilterComponents/UfficioComponent";
 import TempoLiberoComponent from "./components/FilterComponents/TempoLiberoComponent";
+import AccountComponent from "./components/AccountComponent";
 
 
 function App() {
@@ -44,6 +44,7 @@ function App() {
           <Route path="/cancelleria" element={<CancelleriaComponent />} />
           <Route path="/ufficio" element={<UfficioComponent />} />
           <Route path="/svago" element={<TempoLiberoComponent />} />
+          <Route path="/account" element={<AccountComponent />} />
         </Routes>
       </Container>
       <FooterComponent />

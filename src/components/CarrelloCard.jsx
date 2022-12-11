@@ -121,7 +121,7 @@ const CarrelloCard = (props) => {
               : "00"}{" "}
             €
           </Card.Text>
-          <div class="form-sm" data-form-parent="">
+          <div className="form-sm" data-form-parent="">
             <div class="input-group">
               <Button
                 onClick={() => {
@@ -142,7 +142,7 @@ const CarrelloCard = (props) => {
                 +
               </Button>
             </div>
-            <small class="invalid-feedback"></small>
+            <small className="invalid-feedback"></small>
           </div>
         </Card.Body>
         <ClearIcon

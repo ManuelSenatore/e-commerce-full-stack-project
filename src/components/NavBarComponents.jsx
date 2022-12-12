@@ -7,7 +7,6 @@ import Typography from "@mui/material/Typography";
 import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -61,32 +60,6 @@ export default function NavBarComponents() {
     dispatch(getProdottoList());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  /*   React.useEffect(() => {
-    let active = true;
-
-    if (!loading) {
-      return undefined;
-    }
-
-    (async () => {
-      await sleep(1e3); // For demo purposes.
-
-      if (active) {
-        setOptions([...prodottoList]);
-      }
-    })();
-
-    return () => {
-      active = false;
-    };
-  }, [loading]);
-
-  React.useEffect(() => {
-    if (!open) {
-      setOptions([]);
-    }
-  }, [open]); */
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (

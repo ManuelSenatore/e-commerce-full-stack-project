@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import { Col, Card } from "react-bootstrap";
 import ModalQuantityComponent from "./ModalQuantityComponent";
 import ProdottoOrdineCard from "./ProdottoOrdineCard";
+import ClearIcon from "@mui/icons-material/Clear";
+import { useDispatch } from "react-redux";
+import { removeOrder } from "../redux/actions/actions";
 
 const OrderCard = (props) => {
+  const dispatch = useDispatch();
   const [dialogFlag, setDialogFlag] = useState(false);
 
   const handleClickOpen = () => {
@@ -13,8 +17,10 @@ const OrderCard = (props) => {
   const handleClose = () => {
     setDialogFlag(false);
   };
+  console.log(props.i);
+  
   return (
-    <Col className="mb-3" xs={12}>
+    <Col className="mb-3 d-flex flex-column justify-content-center align-items-center w-100" xs={12}>
       <ModalQuantityComponent
         dialogFlag={dialogFlag}
         handleClose={handleClose}
@@ -22,8 +28,7 @@ const OrderCard = (props) => {
       />
       <Card
         className="cardProdotto cardCarrello d-flex flex-row align-items-center"
-        key={props.i}
-        style={{ maxWidth: "60rem" }}
+        style={{ maxWidth: "100rem" }}
       >
         <div style={{ width: "10rem" }}>
           <Card.Img
@@ -43,28 +48,37 @@ const OrderCard = (props) => {
             onClick={() => {
               setDialogFlag(true);
             }}
-            style={{ cursor: "pointer", color: 'blue' }}
+            style={{ cursor: "pointer", color: "blue" }}
             className="text-start"
           >
             Clicca per visualizzare tutti i prodotti
           </Card.Text>
-          <Card.Text className="text-end" style={{ fontWeight: "bolder" }}>
+          <Card.Text className="" style={{ fontWeight: "bolder" }}>
             Prezzo totale:
             {props.order.totalCost.toString().split(".")[0]},
             {props.order.totalCost.toString().split(".")[1]
               ? props.order.totalCost.toString().split(".")[1].slice(0, 2)
-                  .length === 1
-                ? props.order.totalCost.toString().split(".")[1].slice(0, 2) +
+              .length === 1
+              ? props.order.totalCost.toString().split(".")[1].slice(0, 2) +
                   "0"
                 : props.order.totalCost.toString().split(".")[1].slice(0, 2) +
                   ""
-              : "00"}{" "}
+                  : "00"}{" "}
             €
           </Card.Text>
           {props.order.cartItems.map((prodotto, i) => {
             <ProdottoOrdineCard prodotto={prodotto} key={i} />;
           })}
         </Card.Body>
+        <Card.Footer className="d-flex flex-column justify-content-flex-start align-items-start" style={{backgroundColor: 'white', border: 'none'}}>
+        <ClearIcon
+          className="deleteIconOrder"
+          onClick={() => {
+            dispatch(removeOrder(props.i))
+          }}
+          style={{ cursor: "pointer", color: "red" }}
+        />
+        </Card.Footer>
       </Card>
     </Col>
   );

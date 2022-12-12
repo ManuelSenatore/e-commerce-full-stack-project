@@ -14,7 +14,6 @@ const CheckoutComponent = () => {
   const dispatch = useDispatch();
   const [checkoutBodyArray, setCheckoutBodyArray] = useState([])
   const [stripe, setStripe] = useState(window.Stripe(stripeAPIToken))
-  const orderList = useSelector((state) => state.order.orderList)
 
   for (let i = 0; i < carrelloList.cartItems.length; i++) {
     checkoutBodyArray.push({
@@ -37,7 +36,6 @@ const CheckoutComponent = () => {
         localStorage.setItem("sessionId", response.data.sessionId);
         console.log("session", response.data);
         stripe.redirectToCheckout({sessionId: response.data.sessionId})
-          dispatch(setOrderList(carrelloList))
       })
       .catch((err) => console.log(err));
   };

@@ -13,8 +13,7 @@ function LoginComponent() {
 
   const navigate = useNavigate();
 
-  const clientId =
-    "201175694508-s161r8c4vgod5k3kjsp6jj1i8dgt5oad.apps.googleusercontent.com";
+  const clientId = process.env.REACT_APP_NEXT_PUBLIC_GOOGLE_API_KEY;
 
   useEffect(() => {
     const start = () => {

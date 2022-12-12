@@ -7,6 +7,7 @@ export const SET_CARRELLO_LIST = "SET_CARRELLO_LIST";
 export const SET_CATEGORIA_LIST = "SET_CATEGORIA_LIST";
 export const ORDER_CATEGORIA_LIST = "ORDER_CATEGORIA_LIST";
 export const SET_ORDER_LIST = "SET_ORDER_LIST";
+export const REMOVE_TO_ORDER = "REMOVE_TO_ORDER";
 
 export const setUser = (user) => ({
   type: SET_USER,
@@ -45,6 +46,11 @@ export const orderCategoriaList = (categoriaList) => ({
 export const setOrderList = (data) => ({
   type: SET_ORDER_LIST,
   payload: data
+})
+
+export const removeOrder = (i) => ({
+  type: REMOVE_TO_ORDER,
+  payload: i
 })
 
 export const logIn = (obj) => {

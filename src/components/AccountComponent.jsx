@@ -23,7 +23,7 @@ const AccountComponent = () => {
   return (
     <Container className='pageContainer '>
       <h2>Ordini effettuati</h2>
-      <Row className="display-flex justify-content-beetween">
+      <Row className=" d-flex flex-column-reverse">
       {
         orderList.length === 0 ? (
             <Col className="d-flex flex-column justify-content-center align-items-center ">
@@ -38,7 +38,7 @@ const AccountComponent = () => {
           </Col>
         ) : (
             orderList.map((order, i) => {
-                return <OrderCard order={order} key={i} />
+                return <OrderCard order={order} key={i} i={i} />
             }))
       }
       </Row>

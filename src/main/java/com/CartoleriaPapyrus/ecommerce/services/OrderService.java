@@ -22,7 +22,7 @@ public class OrderService {
     String apiKey;
 
 
-    public Session createSession( List<CheckoutRequest> checkoutRequestList) throws StripeException {
+    public Session createSession(List<CheckoutRequest> checkoutRequestList) throws StripeException {
         String successURL = baseURL + "payment/success";
 
 
@@ -32,7 +32,7 @@ public class OrderService {
 
         List<SessionCreateParams.LineItem> sessionItemList = new ArrayList<>();
 
-        for(CheckoutRequest checkoutRequest : checkoutRequestList) {
+        for (CheckoutRequest checkoutRequest : checkoutRequestList) {
             sessionItemList.add(createSessionLineItem(checkoutRequest));
         }
 
@@ -42,6 +42,58 @@ public class OrderService {
                 .setCancelUrl(failureURL)
                 .setSuccessUrl(successURL)
                 .addAllLineItem(sessionItemList)
+                .setShippingAddressCollection(SessionCreateParams.ShippingAddressCollection
+                        .builder()
+                        .addAllowedCountry(
+                                SessionCreateParams.ShippingAddressCollection.AllowedCountry.IT
+                        ).build())
+                .addShippingOption(
+                        SessionCreateParams.ShippingOption
+                                .builder()
+                                .setShippingRateData(
+                                        SessionCreateParams.ShippingOption.ShippingRateData
+                                                .builder()
+                                                .setType(
+                                                        SessionCreateParams.ShippingOption.ShippingRateData.Type.FIXED_AMOUNT
+                                                )
+                                                .setFixedAmount(
+                                                        SessionCreateParams.ShippingOption.ShippingRateData.FixedAmount
+                                                                .builder()
+                                                                .setAmount(0L)
+                                                                .setCurrency("eur")
+                                                                .build()
+                                                )
+                                                .setDisplayName("Consegna gratuita")
+                                                .setDeliveryEstimate(
+                                                        SessionCreateParams.ShippingOption.ShippingRateData.DeliveryEstimate
+                                                                .builder()
+                                                                .setMinimum(
+                                                                        SessionCreateParams.ShippingOption.ShippingRateData.DeliveryEstimate.Minimum
+                                                                                .builder()
+                                                                                .setUnit(
+                                                                                        SessionCreateParams.ShippingOption.ShippingRateData.DeliveryEstimate.Minimum.Unit.BUSINESS_DAY
+                                                                                )
+                                                                                .setValue(5L)
+                                                                                .build()
+                                                                )
+                                                                .setMaximum(
+                                                                        SessionCreateParams.ShippingOption.ShippingRateData.DeliveryEstimate.Maximum
+                                                                                .builder()
+                                                                                .setUnit(
+                                                                                        SessionCreateParams.ShippingOption.ShippingRateData.DeliveryEstimate.Maximum.Unit.BUSINESS_DAY
+                                                                                )
+                                                                                .setValue(7L)
+                                                                                .build()
+                                                                )
+                                                                .build()
+                                                )
+                                                .build()
+                                )
+                                .build())
+                .setPhoneNumberCollection(
+                        SessionCreateParams.PhoneNumberCollection.builder()
+                                .setEnabled(true)
+                                .build())
                 .build();
         return Session.create(params);
     }
@@ -50,14 +102,14 @@ public class OrderService {
 
         return SessionCreateParams.LineItem.builder()
                 .setPriceData(createPriceData(checkoutRequest))
-                .setQuantity(Long.parseLong(String.valueOf( checkoutRequest.getQuantity())))
+                .setQuantity(Long.parseLong(String.valueOf(checkoutRequest.getQuantity())))
                 .build();
     }
 
     private SessionCreateParams.LineItem.PriceData createPriceData(CheckoutRequest checkoutRequest) {
         return SessionCreateParams.LineItem.PriceData.builder()
                 .setCurrency("eur")
-                .setUnitAmount((long)(checkoutRequest.getPrice()*100))
+                .setUnitAmount((long) (checkoutRequest.getPrice() * 100))
                 .setProductData(
                         SessionCreateParams.LineItem.PriceData.ProductData.builder()
                                 .setName(checkoutRequest.getProductName())

@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import { Alert } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { Container, Button, Form, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 const SignUpComponent = () => {
   const navigate = useNavigate();
+  const [ripetiPassword, setRipetiPassword] = useState("");
+  const [checkPassword, setCheckPassword] = useState(false);
 
   const [formObj, setFormObj] = useState({
     // oggetto per la compilazione del form
@@ -22,6 +25,10 @@ const SignUpComponent = () => {
       };
     });
   };
+
+  useEffect(() => {
+    if (formObj.password === ripetiPassword) setCheckPassword(false);
+  }, [formObj.password, ripetiPassword]);
 
   const signUp = async (obj) => {
     const baseEndpoint = "http://localhost:8080/api/users/new-raw";
@@ -42,7 +49,7 @@ const SignUpComponent = () => {
         console.log(data);
         navigate("/login");
       } else {
-        alert("Error fetching results");
+        console.log("Error fetching results");
       }
     } catch (error) {
       console.log(error);
@@ -57,7 +64,12 @@ const SignUpComponent = () => {
           <Form
             onSubmit={(e) => {
               e.preventDefault();
-              signUp(formObj);
+              if (formObj.password === ripetiPassword) {
+                signUp ( formObj );
+                setCheckPassword(false);
+            } else {
+                setCheckPassword(true)
+            }
             }}
           >
             <Form.Group className="mb-3" controlId="formBasicNomeCompleto">
@@ -67,7 +79,7 @@ const SignUpComponent = () => {
                 onChange={(e) => handleForm("nomeCompleto", e.target.value)}
                 type="text"
                 placeholder="Inserisci nome"
-                required= "true"
+                required="true"
               />
             </Form.Group>
 
@@ -79,7 +91,7 @@ const SignUpComponent = () => {
                 onChange={(e) => handleForm("username", e.target.value)}
                 type="text"
                 placeholder="Inserisci username"
-                required= "true"
+                required="true"
               />
             </Form.Group>
 
@@ -90,7 +102,7 @@ const SignUpComponent = () => {
                 onChange={(e) => handleForm("email", e.target.value)}
                 type="email"
                 placeholder="Inserisci la tua email"
-                required= "true"
+                required="true"
               />
             </Form.Group>
 
@@ -102,9 +114,24 @@ const SignUpComponent = () => {
                 type="password"
                 placeholder="Inserisci Password"
                 autoComplete="current-password"
-                required= "true"
+                required="true"
               />
             </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Ripeti password</Form.Label>
+              <Form.Control
+                required
+                value={ripetiPassword}
+                onChange={(e) => setRipetiPassword(e.target.value)}
+                type="password"
+                placeholder="Conferma Password"
+                autoComplete="current-password"
+              />
+            </Form.Group>
+            {checkPassword && (
+              <Alert severity="error">Le password non corrispondono</Alert>
+            )}
             <Button
               className={"w-100 d-block mx-auto mt-4"}
               variant="primary"

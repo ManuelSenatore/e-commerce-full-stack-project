@@ -29,7 +29,6 @@ export default function SearchBarComponent() {
 
         <Autocomplete
           id="searchProdotto"
-          sx={{ width: "100%", background: 'white', borderRadius: '10px' }}
           options={maker()}
           autoHighlight
           getOptionLabel={(option) => option.label}
@@ -48,7 +47,7 @@ export default function SearchBarComponent() {
           renderInput={(params) => (
             <TextField
               {...params}
-              label={<SearchIcon />} 
+              label={<SearchIcon className="searchIcon" />} 
               inputProps={{
                 ...params.inputProps,
                 autoComplete: "new-password", // disable autocomplete and autofill

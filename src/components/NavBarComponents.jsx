@@ -12,7 +12,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import papyrus from "../img/papyrus.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getCarrelloList,
@@ -22,6 +22,8 @@ import {
 } from "../redux/actions/actions";
 import { useEffect } from "react";
 import SearchBarComponent from "./SearchBarComponent";
+import DialogLogoutComponent from "./DialogLogoutComponent";
+import SnackbarSuccess from "./SnackBarSuccess";
 
 export default function NavBarComponents() {
   const user = useSelector((state) => state.user.user);
@@ -33,6 +35,20 @@ export default function NavBarComponents() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Proprietà del modale
+  const [dialogEliminazioneFlag, setDialogEliminazioneFlag] =
+    React.useState(false);
+
+  const handleClickOpen = () => {
+    setDialogEliminazioneFlag(true);
+  };
+
+  const handleClickClose = () => {
+    setDialogEliminazioneFlag(false);
+  };
+
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -97,8 +113,8 @@ export default function NavBarComponents() {
           <MenuItem
             style={{ backgroundColor: "red", color: "white" }}
             onClick={() => {
+              setDialogEliminazioneFlag(true);
               handleMenuClose();
-              dispatch(logout());
             }}
           >
             Logout
@@ -165,7 +181,14 @@ export default function NavBarComponents() {
         }}
       >
         <IconButton size="large" aria-label="" color="inherit">
-          <Badge badgeContent={preferitiList.length} color="error">
+          <Badge
+            badgeContent={
+              location.pathname === "/login" || location.pathname === "/signup"
+                ? 0
+                : preferitiList.length
+            }
+            color="error"
+          >
             <FavoriteIcon />
           </Badge>
         </IconButton>
@@ -177,7 +200,16 @@ export default function NavBarComponents() {
         }}
       >
         <IconButton size="large" aria-label="" color="inherit">
-          <Badge badgeContent={carrelloList.cartItems.length} color="error">
+          <Badge
+            badgeContent={
+              location.pathname === "/login" ||
+              location.pathname === "/signup" ||
+              location.pathname === "payment/success"
+                ? 0
+                : carrelloList.cartItems.length
+            }
+            color="error"
+          >
             <ShoppingCartIcon />
           </Badge>
         </IconButton>
@@ -200,6 +232,10 @@ export default function NavBarComponents() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
+      <DialogLogoutComponent
+        dialogEliminazioneFlag={dialogEliminazioneFlag}
+        handleClose={handleClickClose}
+      />
       <AppBar className="navBar" sticky="top">
         <Toolbar>
           {/*  <IconButton
@@ -234,7 +270,15 @@ export default function NavBarComponents() {
               aria-label="show 4 new mails"
               color="inherit"
             >
-              <Badge badgeContent={preferitiList.length} color="error">
+              <Badge
+                badgeContent={
+                  location.pathname === "/login" ||
+                  location.pathname === "/signup"
+                    ? 0
+                    : preferitiList.length
+                }
+                color="error"
+              >
                 <FavoriteIcon />
               </Badge>
             </IconButton>
@@ -246,7 +290,16 @@ export default function NavBarComponents() {
               aria-label="show 17 new notifications"
               color="inherit"
             >
-              <Badge badgeContent={carrelloList.cartItems.length} color="error">
+              <Badge
+                badgeContent={
+                  location.pathname === "/login" ||
+                  location.pathname === "/signup" ||
+                  location.pathname === "payment/success"
+                    ? 0
+                    : carrelloList.cartItems.length
+                }
+                color="error"
+              >
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>

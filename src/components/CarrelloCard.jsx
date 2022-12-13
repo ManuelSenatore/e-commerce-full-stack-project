@@ -73,7 +73,7 @@ const CarrelloCard = (props) => {
         console.log(data);
         dispatch(getCarrelloList(token, user.id));
       } else {
-        alert("Error fetching results");
+        console.log("Error fetching results");
       }
     } catch (error) {
       console.log(error);

@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +14,10 @@ const CheckoutComponent = () => {
   const dispatch = useDispatch();
   const [checkoutBodyArray, setCheckoutBodyArray] = useState([])
   const [stripe, setStripe] = useState(window.Stripe(stripeAPIToken))
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   for (let i = 0; i < carrelloList.cartItems.length; i++) {
     checkoutBodyArray.push({

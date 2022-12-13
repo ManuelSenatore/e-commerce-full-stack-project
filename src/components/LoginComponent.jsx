@@ -5,10 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { logIn } from "../redux/actions/actions";
 import GoogleLogin from "react-google-login";
 import { gapi } from "gapi-script";
+import { Alert } from "@mui/material";
 
 function LoginComponent() {
   const user = useSelector((state) => state.user.user);
 
+  const loginFlag = useSelector((state) => state.user.loginFlag);
   const dispatch = useDispatch(); // REDUX
 
   const navigate = useNavigate();
@@ -22,6 +24,7 @@ function LoginComponent() {
       });
     };
     gapi.load("client: auth2", start);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const signUp = async (obj) => {
@@ -107,7 +110,6 @@ function LoginComponent() {
             onSubmit={(e) => {
               e.preventDefault();
               dispatch(logIn(formObj));
-              console.log(user);
             }}
           >
             <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -118,7 +120,7 @@ function LoginComponent() {
                 type="text"
                 autoComplete="current-password"
                 placeholder="Inserisci il nome utente"
-                required= "true"
+                required="true"
               />
               <Form.Text className="text-muted">
                 Non condividere mai la password con nessuno.
@@ -133,9 +135,12 @@ function LoginComponent() {
                 type="password"
                 autoComplete="current-password"
                 placeholder="Inserisci la tua password"
-                required= "true"
+                required="true"
               />
             </Form.Group>
+            {loginFlag && (
+              <Alert severity="error">Nome utente o password errata</Alert>
+            )}
             <Button
               className={"w-100 d-block mx-auto my-4"}
               variant="primary"
@@ -143,16 +148,18 @@ function LoginComponent() {
             >
               ACCEDI
             </Button>
-              <GoogleLogin
-                className={"w-100"}
-                clientId={clientId}
-                onSuccess={onSuccess}
-                onFailure={onFailure}
-                cookiePolicy={"single_host_policy"}
-              />
+            <GoogleLogin
+              className={"w-100"}
+              clientId={clientId}
+              onSuccess={onSuccess}
+              onFailure={onFailure}
+              cookiePolicy={"single_host_policy"}
+            />
           </Form>
         </Card.Body>
-        <Card.Footer className="text-center"><Link to={"/signup"}>Se non sei registrato clicca qui.</Link></Card.Footer>
+        <Card.Footer className="text-center">
+          <Link to={"/signup"}>Se non sei registrato clicca qui</Link>
+        </Card.Footer>
       </Card>
     </Container>
   );

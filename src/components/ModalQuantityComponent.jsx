@@ -30,13 +30,11 @@ const ModalQuantityComponent = (props) => {
         >
             <DialogContent>
                 <DialogTitle className='text-center'>Prodotti Acquistati</DialogTitle>
-                <DialogContentText id="alert-dialog-slide-description">
                     {
                         props.prodotto.cartItems.map((elemento, i) => {
                            return <ProdottoOrdineCard elemento={elemento} key={i} />
                         })
                     }
-                </DialogContentText>
             </DialogContent>
             <DialogActions>
                 <Button

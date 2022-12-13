@@ -15,7 +15,7 @@ function CarouselComponents() {
         />
         <Carousel.Caption className='caroselloText'>
           <h2 className='titleCarousel'>Tutto quello che cerchi</h2>
-          <Button onClick={() => navigate("/cancelleria")} variant='outlined' color='secondary'>Inizia lo shop</Button>
+          <Button onClick={() => navigate("/cancelleria")} variant='contained' color='secondary'>Inizia lo shop</Button>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
@@ -39,7 +39,7 @@ function CarouselComponents() {
 
         <Carousel.Caption className='caroselloText'>
           <h2 className='titleCarousel'>La scuola con noi è ancora più bella</h2>
-          <Button onClick={() => navigate("/scuola")} variant='outlined' color='secondary'>Inizia lo shop</Button>
+          <Button onClick={() => navigate("/scuola")} variant='contained' color='secondary'>Inizia lo shop</Button>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>

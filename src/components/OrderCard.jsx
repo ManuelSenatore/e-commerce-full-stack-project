@@ -54,7 +54,7 @@ const OrderCard = (props) => {
             Clicca per visualizzare tutti i prodotti
           </Card.Text>
           <Card.Text className="" style={{ fontWeight: "bolder" }}>
-            Prezzo totale:
+            Prezzo totale: 
             {props.order.totalCost.toString().split(".")[0]},
             {props.order.totalCost.toString().split(".")[1]
               ? props.order.totalCost.toString().split(".")[1].slice(0, 2)

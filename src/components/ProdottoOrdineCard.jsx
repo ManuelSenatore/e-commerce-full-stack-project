@@ -18,6 +18,7 @@ const ProdottoOrdineCard = (props) => {
           <Card.Title className="mt-2">
             {props.elemento.prodotto.nome}
           </Card.Title>
+          <Card.Text>Quantità: {props.elemento.quantity}</Card.Text>
           <Card.Text className="flex-end" style={{ fontWeight: "bolder" }}>
             {props.elemento.prodotto.prezzo.toString().split(".")[0]},
             {props.elemento.prodotto.prezzo.toString().split(".")[1]

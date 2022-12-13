@@ -8,6 +8,18 @@ export const SET_CATEGORIA_LIST = "SET_CATEGORIA_LIST";
 export const ORDER_CATEGORIA_LIST = "ORDER_CATEGORIA_LIST";
 export const SET_ORDER_LIST = "SET_ORDER_LIST";
 export const REMOVE_TO_ORDER = "REMOVE_TO_ORDER";
+export const SET_LOGIN_FLAG_TRUE = "SET_LOGIN_FLAG_TRUE";
+export const SET_LOGIN_FLAG_FALSE = "SET_LOGIN_FLAG_FALSE";
+
+export const setLoginFlagTrue = () => ({
+  type: SET_LOGIN_FLAG_TRUE,
+  payload: true
+})
+
+export const setLoginFlagFalse = () => ({
+  type: SET_LOGIN_FLAG_FALSE,
+  payload: false
+})
 
 export const setUser = (user) => ({
   type: SET_USER,
@@ -70,12 +82,12 @@ export const logIn = (obj) => {
 
       if (response.ok) {
         const data = await response.json();
-
         dispatch(setUser(data));
-        console.log(data);
+        dispatch(setLoginFlagFalse())
       } else {
+        dispatch(setLoginFlagTrue())
         console.log("username o password errata");
-      }
+      } 
     } catch (error) {
       console.log(error);
     }

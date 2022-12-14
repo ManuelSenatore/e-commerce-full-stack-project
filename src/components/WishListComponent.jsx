@@ -31,7 +31,7 @@ const WishListComponent = () => {
   }, []);
   return (
     <Container className="pageContainer">
-      <h2>PREFERITI</h2>
+      <h2 style={{fontFamily: 'fantasy'}}>PREFERITI</h2>
       <Row className="display-flex justify-content-beetween">
         {preferitiList.length === 0 ? (
           <Col className="d-flex flex-column justify-content-center align-items-center ">

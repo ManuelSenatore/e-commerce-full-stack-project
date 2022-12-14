@@ -22,7 +22,7 @@ const AccountComponent = () => {
       }, [token]);
   return (
     <Container className='pageContainer '>
-      <h2>Ordini effettuati</h2>
+      <h2 style={{fontFamily: 'fantasy'}}>Ordini effettuati</h2>
       <Row className=" d-flex flex-column-reverse">
       {
         orderList.length === 0 ? (

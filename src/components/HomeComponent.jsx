@@ -28,7 +28,7 @@ const HomeComponent = () => {
       <CarouselComponents />
       <FilterBar />
       <Container>
-        <h2 className="text-center">Ultimi Arrivi</h2>
+        <h1 className="text-center" style={{fontFamily: 'fantasy'}}>Ultimi Arrivi</h1>
         <Row className="display-flex justify-content-beetween">
           {ultimiArrivi.map((prodotto, i) => (
             <ProdottoCard key={i} prodotto={prodotto} />

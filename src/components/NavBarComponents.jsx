@@ -255,6 +255,7 @@ export default function NavBarComponents() {
             noWrap
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
+            style={{fontFamily: 'fantasy'}}
           >
             PAPYRUS
           </Typography>

@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPreferitiList, logout } from "../redux/actions/actions";
+import { getPreferitiList } from "../redux/actions/actions";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Col, Container, Row, Button } from "react-bootstrap";

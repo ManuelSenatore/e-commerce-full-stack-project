@@ -80,7 +80,7 @@ const LikeComponent = (props) => {
     <>
       <DialogComponent dialogEliminazioneFlag = {dialogEliminazioneFlag} handleClose={handleClose}/>
       <FavoriteIcon
-        style={{ cursor: "pointer", fontSize: "2rem" }}
+        style={{ cursor: "pointer", fontSize: "2rem", zIndex: "100" }}
         color={
           preferitiList.some((el) => el.id === props.prodotto.id) ? "error" : ""
         }

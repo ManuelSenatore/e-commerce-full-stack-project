@@ -49,7 +49,7 @@ const PreferitoCard = (props) => {
             console.log(props.preferito.id);
           }}
           className="favoriteIcon"
-          style={{ cursor: "pointer" }}
+          style={{ cursor: "pointer", zIndex: 100 }}
         />
         <Card.Img
           style={{ cursor: "pointer" }}

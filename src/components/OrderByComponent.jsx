@@ -60,7 +60,7 @@ const OrderByComponent = () => {
   console.log(categoriaList.length);
   return (
     <Container>
-      <Row className="orderingBar">
+      <Row className="orderingBar mb-2">
         <Col>
           <h6>Prodotti: {categoriaList.length}</h6>
         </Col>

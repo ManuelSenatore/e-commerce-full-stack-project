@@ -4,6 +4,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import ButtonAcquistaComponent from "./ButtonAcquistaComponent";
 import LikeComponent from "./LikeComponent";
+import ReactImageMagnify from 'react-image-magnify';
 
 const DettagliComponent = () => {
   const [data, setData] = useState(null);
@@ -44,11 +45,23 @@ const DettagliComponent = () => {
             lg={6}
             className="d-flex justify-content-center align-items-center p-0"
           >
-            <img
-              style={{ maxHeight: "100%", maxWidth: "100%" }}
-              src={data.immagineUrl}
-              alt="Immagine"
-            />
+             <ReactImageMagnify {...{
+                         smallImage: {
+                            alt: 'Prodotto',
+                            isFluidWidth: true,
+                            src: data.immagineUrl,
+                            sizes: '(max-width: 480px) 100vw, (max-width: 1200px) 30vw, 360px'
+                        },
+                        largeImage: {
+                            src: data.immagineUrl,
+                            width: 800,
+                            height: 1000
+                        },
+                        enlargedImageContainerDimensions: {
+                            width: '100%',
+                            height: '100%'
+                        }
+                    }} />
           </Col>
           <Col
             xs={12}

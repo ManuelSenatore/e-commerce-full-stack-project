@@ -30,7 +30,7 @@ const OrderCard = (props) => {
         className="cardProdotto cardCarrello d-flex flex-row align-items-center"
         style={{ maxWidth: "100rem" }}
       >
-        <div style={{ width: "10rem" }}>
+        <div style={{ width: "10rem", overflow: "hidden" }}>
           <Card.Img
             onClick={() => {
               setDialogFlag(true);
@@ -66,6 +66,7 @@ const OrderCard = (props) => {
                   : "00"}{" "}
             €
           </Card.Text>
+          <Card.Text>Consegna stimata 5-7 giorni lavorativi</Card.Text>
           {props.order.cartItems.map((prodotto, i) => {
             <ProdottoOrdineCard prodotto={prodotto} key={i} />;
           })}

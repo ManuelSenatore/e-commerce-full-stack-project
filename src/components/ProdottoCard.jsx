@@ -17,6 +17,7 @@ const ProdottoCard = (props) => {
         <LikeComponent prodotto={props.prodotto} />{" "}
         {/* Icona per aggiungere ai preferiti */}
         <Card.Img
+          className="imgCard"
           style={{cursor: "pointer"}}
           onClick={() => navigate("/dettagli" + props.prodotto.id)}
           variant="top"

@@ -1,12 +1,10 @@
-import { Button, Input } from "@mui/material";
+import { Button} from "@mui/material";
 import React from "react";
-import { Col, Card, InputGroup } from "react-bootstrap";
-import { MdDeleteForever } from "react-icons/md";
+import { Col, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getCarrelloList } from "../redux/actions/actions";
 import { useState } from "react";
-import ModalQuantityComponent from "./ModalQuantityComponent";
 import { useEffect } from "react";
 import ClearIcon from '@mui/icons-material/Clear';
 
@@ -82,6 +80,7 @@ const CarrelloCard = (props) => {
 
   useEffect(() => {
     updateQuantity(props.elemento.id, formObj);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[formObj.quantity])
 
   return (
@@ -89,11 +88,11 @@ const CarrelloCard = (props) => {
       <Card
         className="cardProdotto cardCarrello d-flex flex-row align-items-center"
         key={props.i}
-        style={{ width: 100 + "%" }}
+        style={{ width: 100 + "%"}}
       >
-        <div style={{ width: "10rem" }}>
+        <div style={{ width: "10rem", overflow: "hidden" }}>
           <Card.Img
-            style={{ cursor: "pointer" }}
+            style={{ cursor: "pointer"}}
             onClick={() => navigate("/dettagli" + props.elemento.prodotto.id)}
             variant="top"
             src={props.elemento.prodotto.immagineUrl}

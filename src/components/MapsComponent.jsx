@@ -55,7 +55,7 @@ function Map() {
           }}
         >
           <div>
-            <h2>Visualizza su Google Maps</h2>
+            <h6>Visualizza su Google Maps</h6>
             <a className="d-block text-center" href="https://www.google.it/maps/place/Papyrus+Cartoleria/@40.7067664,14.7015448,17z/data=!3m1!4b1!4m5!3m4!1s0x133bc0e2c18d65a3:0x22b4a3d09ec5c866!8m2!3d40.7067664!4d14.7037388" target="_blank" rel="noreferrer">Clicca qui</a>
           </div>
         </InfoWindow>

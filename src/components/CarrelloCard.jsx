@@ -1,4 +1,4 @@
-import { Button} from "@mui/material";
+import { Button } from "@mui/material";
 import React from "react";
 import { Col, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,7 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { getCarrelloList } from "../redux/actions/actions";
 import { useState } from "react";
 import { useEffect } from "react";
-import ClearIcon from '@mui/icons-material/Clear';
+import ClearIcon from "@mui/icons-material/Clear";
+import LoadingComponent from "./LoadingComponent";
 
 const CarrelloCard = (props) => {
   const user = useSelector((state) => state.user.user);
@@ -21,8 +22,18 @@ const CarrelloCard = (props) => {
     // setta l'oggetto del form
     setFormObj({
       ...formObj,
-      [key] : value
-    })
+      [key]: value,
+    });
+  };
+
+  const [loading, setLoadingComponent] = React.useState(false);
+
+  const loadingOn = () => {
+    setLoadingComponent(true);
+  };
+
+  const loadingOff = () => {
+    setLoadingComponent(false);
   };
 
   const removeToCarrello = async (elementoId) => {
@@ -42,8 +53,9 @@ const CarrelloCard = (props) => {
         const data = await response.json();
         console.log(data);
         dispatch(getCarrelloList(token, user.id));
+        loadingOff();
       } else {
-        alert("Error fetching results");
+        console.log("Error fetching results");
       }
     } catch (error) {
       console.log(error);
@@ -70,6 +82,7 @@ const CarrelloCard = (props) => {
         const data = await response.json();
         console.log(data);
         dispatch(getCarrelloList(token, user.id));
+        loadingOff();
       } else {
         console.log("Error fetching results");
       }
@@ -80,19 +93,20 @@ const CarrelloCard = (props) => {
 
   useEffect(() => {
     updateQuantity(props.elemento.id, formObj);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[formObj.quantity])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formObj.quantity]);
 
   return (
     <Col className="mb-3" xs={12}>
+      <LoadingComponent loading={loading} loadingOff={loadingOff} />
       <Card
         className="cardProdotto cardCarrello d-flex flex-row align-items-center"
         key={props.i}
-        style={{ width: 100 + "%"}}
+        style={{ width: 100 + "%" }}
       >
         <div style={{ width: "10rem", overflow: "hidden" }}>
           <Card.Img
-            style={{ cursor: "pointer"}}
+            style={{ cursor: "pointer" }}
             onClick={() => navigate("/dettagli" + props.elemento.prodotto.id)}
             variant="top"
             src={props.elemento.prodotto.immagineUrl}
@@ -125,7 +139,7 @@ const CarrelloCard = (props) => {
               <Button
                 onClick={() => {
                   handleForm("quantity", formObj.quantity - 1);
-                
+                  loadingOn();
                 }}
                 disabled={props.elemento.quantity === 1 ? true : false}
               >
@@ -135,7 +149,7 @@ const CarrelloCard = (props) => {
               <Button
                 onClick={() => {
                   handleForm("quantity", props.elemento.quantity + 1);
-
+                  loadingOn();
                 }}
               >
                 +
@@ -148,7 +162,7 @@ const CarrelloCard = (props) => {
           className="align-self-start"
           onClick={() => {
             removeToCarrello(props.elemento.id);
-            console.log(props.elemento.id);
+            loadingOn();
           }}
           style={{ cursor: "pointer", color: "red" }}
         />

@@ -5,11 +5,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getPreferitiList } from "../redux/actions/actions";
 import ButtonAcquistaComponent from "./ButtonAcquistaComponent";
+import LoadingComponent from "./LoadingComponent";
 const PreferitoCard = (props) => {
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.user.token);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [loading, setLoadingComponent] = React.useState(false);
+
+  const loadingOn = () => {
+    setLoadingComponent(true);
+  };
+
+  const loadingOff = () => {
+    setLoadingComponent(false);
+  };
 
   const removeToFavorite = async (elementoId) => {
     const baseEndpoint = `http://localhost:8080/api/preferiti/delete/prodotto/${elementoId}/${user.id}`;
@@ -28,8 +39,9 @@ const PreferitoCard = (props) => {
         const data = await response.json();
         console.log(data);
         dispatch(getPreferitiList(token, user.id));
+        loadingOff()
       } else {
-        alert("Error fetching results");
+        console.log("Error fetching results");
       }
     } catch (error) {
       console.log(error);
@@ -38,6 +50,7 @@ const PreferitoCard = (props) => {
 
   return (
     <Col xs={6} sm={6} md={4}>
+      <LoadingComponent loading={loading} loadingOff={loadingOff} />
       <Card
         className="cardProdotto"
         key={props.i}
@@ -46,7 +59,7 @@ const PreferitoCard = (props) => {
         <MdDeleteForever
           onClick={() => {
             removeToFavorite(props.preferito.id);
-            console.log(props.preferito.id);
+            loadingOn()
           }}
           className="favoriteIcon"
           style={{ cursor: "pointer", zIndex: 100 }}

@@ -54,8 +54,8 @@ const DettagliComponent = () => {
                         },
                         largeImage: {
                             src: data.immagineUrl,
-                            width: 800,
-                            height: 1000
+                            width: 1000,
+                            height: 1200
                         },
                         enlargedImageContainerDimensions: {
                             width: '100%',
@@ -85,7 +85,7 @@ const DettagliComponent = () => {
             </span>
             <p>{data.descrizione}</p>
             <div
-              style={{ width: "100%" }}
+              style={{ width: "100%", zIndex: -1 }}
               className="d-flex align-items-center justify-content-evenly mb-4"
             >
               <div className="divRelative">

@@ -96,19 +96,15 @@ export const logIn = (obj) => {
 
 export const getProdottoList = () => {
   const baseEndpoint = "http://localhost:8080/api/prodotti";
-  console.log("eseguo get prodotto list");
 
   return async (dispatch) => {
     try {
       const response = await fetch(baseEndpoint, {
         method: "GET",
       });
-      console.log(response);
       if (response.ok) {
         const data = await response.json();
         dispatch(setProdottoList(data));
-
-        console.log(data);
       } else {
         console.log("Error fetching results");
       }
@@ -120,7 +116,6 @@ export const getProdottoList = () => {
 
 export const getPreferitiList = (key, id) => {
   const baseEndpoint = `http://localhost:8080/api/preferiti/${id}`;
-  console.log ( "eseguo get preferiti list" );
   const header = {
       Authorization : `Bearer ${ key }` ,
   };
@@ -133,8 +128,6 @@ export const getPreferitiList = (key, id) => {
           if ( response.ok ) {
               const data = await response.json ();
               dispatch(setPreferitiList(data))
-              console.log(response);
-              console.log ( data );
           } else {
               console.log ( "Error fetching results" );
           }
@@ -146,7 +139,6 @@ export const getPreferitiList = (key, id) => {
 
 export const getCarrelloList = (key, id) => {
   const baseEndpoint = `http://localhost:8080/api/carrello/${id}`;
-  console.log ( "eseguo get preferiti list" );
   const header = {
       Authorization : `Bearer ${ key }` ,
   };
@@ -159,8 +151,6 @@ export const getCarrelloList = (key, id) => {
           if ( response.ok ) {
               const data = await response.json ();
               dispatch(setCarrelloList(data))
-              console.log(response);
-              console.log ( data );
           } else {
               console.log ( "Error fetching results" );
           }
@@ -172,7 +162,6 @@ export const getCarrelloList = (key, id) => {
 
 export const getCategoriaList = (categoria) => {
   const baseEndpoint = `http://localhost:8080/api/prodotti/categoria/${categoria}`;
-  console.log ( "eseguo get categoria list" );
   return async (dispatch ) => {
       try {
           const response = await fetch ( baseEndpoint , {
@@ -181,7 +170,6 @@ export const getCategoriaList = (categoria) => {
           if ( response.ok ) {
               const data = await response.json ();
               dispatch(setCategoriaList(data))
-              console.log ( data );
           } else {
               console.log ( "Error fetching results" );
           }
@@ -193,7 +181,6 @@ export const getCategoriaList = (categoria) => {
 
 export const orderingCategoriaList = (categoria, value) => {
   const baseEndpoint = `http://localhost:8080/api/prodotti/categoria/${categoria}/${value}`;
-  console.log ( "eseguo get categoria list" );
   return async (dispatch ) => {
       try {
           const response = await fetch ( baseEndpoint , {
@@ -202,7 +189,6 @@ export const orderingCategoriaList = (categoria, value) => {
           if ( response.ok ) {
               const data = await response.json ();
               dispatch(orderCategoriaList(data))
-              console.log ( data );
           } else {
               console.log ( "Error fetching results" );
           }

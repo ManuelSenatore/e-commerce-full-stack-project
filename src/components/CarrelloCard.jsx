@@ -51,7 +51,6 @@ const CarrelloCard = (props) => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
         dispatch(getCarrelloList(token, user.id));
         loadingOff();
       } else {
@@ -63,7 +62,6 @@ const CarrelloCard = (props) => {
   };
 
   const updateQuantity = async (elementoId, formObj) => {
-    console.log(formObj);
     const baseEndpoint = `http://localhost:8080/api/carrello/update/${elementoId}`;
 
     const header = {
@@ -80,7 +78,6 @@ const CarrelloCard = (props) => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
         dispatch(getCarrelloList(token, user.id));
         loadingOff();
       } else {

@@ -23,7 +23,6 @@ function BackImageComponent() {
 
   useEffect(() => {
     generateTitle()
-    console.log(title);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname])
 

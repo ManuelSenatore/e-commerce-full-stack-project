@@ -25,7 +25,6 @@ const CarrelloComponent = () => {
 
   useEffect(() => {
     dispatch(getCarrelloList(token, user.id));
-    console.log(carrelloList);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

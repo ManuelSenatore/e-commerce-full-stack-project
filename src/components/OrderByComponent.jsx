@@ -56,8 +56,6 @@ const OrderByComponent = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formObj.value])
 
-  console.log(formObj);
-  console.log(categoriaList.length);
   return (
     <Container>
       <Row className="orderingBar mb-2">

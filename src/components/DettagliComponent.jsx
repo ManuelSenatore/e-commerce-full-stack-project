@@ -18,7 +18,6 @@ const DettagliComponent = () => {
       if (response.ok) {
         let prodotto = await response.json();
         setData(prodotto);
-        console.log(prodotto);
       } else {
         console.log("qualcosa è andato storto");
       }

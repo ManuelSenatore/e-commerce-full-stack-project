@@ -20,7 +20,6 @@ const HomeComponent = () => {
   
   useEffect(() => {
     dispatch(getProdottoList());
-    console.log(prodottoList);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (

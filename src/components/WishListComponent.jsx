@@ -26,7 +26,6 @@ const WishListComponent = () => {
 
   useEffect(() => {
     dispatch(getPreferitiList(token, user.id));
-    console.log(preferitiList);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (

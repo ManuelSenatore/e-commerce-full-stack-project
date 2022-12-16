@@ -17,7 +17,6 @@ const OrderCard = (props) => {
   const handleClose = () => {
     setDialogFlag(false);
   };
-  console.log(props.i);
   
   return (
     <Col className="mb-3 d-flex flex-column justify-content-center align-items-center w-100" xs={12}>

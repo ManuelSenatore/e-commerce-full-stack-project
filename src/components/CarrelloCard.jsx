@@ -135,7 +135,7 @@ const CarrelloCard = (props) => {
             €
           </Card.Text>
           <div className="form-sm" data-form-parent="">
-            <div class="input-group">
+            <div className="input-group">
               <Button
                 onClick={() => {
                   handleForm("quantity", formObj.quantity - 1);

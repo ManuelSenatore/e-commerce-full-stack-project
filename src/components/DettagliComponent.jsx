@@ -54,11 +54,11 @@ const DettagliComponent = () => {
                         },
                         largeImage: {
                             src: data.immagineUrl,
-                            width: 1000,
-                            height: 1200
+                            width: 1200,
+                            height: 1400
                         },
                         enlargedImageContainerDimensions: {
-                            width: '100%',
+                            width: '120%',
                             height: '100%'
                         }
                     }} />
